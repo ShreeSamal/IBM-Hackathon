@@ -131,7 +131,7 @@
                     </li>
 
                     <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="">This Week</a></li>
                     <li><a class="dropdown-item" href="#">This Month</a></li>
                   </ul>
                 </div>
@@ -143,8 +143,20 @@
                   <div id="phChart"></div>
 
                   <script>
+                    var phChart = null;
+                    function updatePHChartWeekData() {
+                      var newData = [39, 55, 28, 57, 42, 82, 56];
+
+                      // Update the chart's data
+                      phChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }
+                    var weekPh = document.getElementById("phWeek");
+                    weekPh.addEventListener("click", updatePHChartWeekData);
+
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#phChart"), {
+                      phChart = new ApexCharts(document.querySelector("#phChart"), {
                         series: [{
                           name: 'PH',
                           data: [31, 40, 28, 51, 42, 82, 56],
@@ -185,7 +197,10 @@
                             format: 'dd/MM/yy HH:mm'
                           },
                         }
-                      }).render();
+                      });
+                    
+                      phChart.render();
+                      console.log(phChart)
                     });
                   </script>
                   <!-- End Line Chart -->

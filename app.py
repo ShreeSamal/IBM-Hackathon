@@ -20,3 +20,11 @@ def complaints():
 def logcomplaint():
     
     return render_template('logcomplaint.html')
+
+# Enable debug mode
+app.debug = True
+
+# Your Flask app routes and other configurations go here
+
+if __name__ == '__main__':
+    app.run()
