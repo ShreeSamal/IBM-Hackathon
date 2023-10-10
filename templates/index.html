@@ -130,9 +130,9 @@
                       <h6>Filter</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#" id="">This Week</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#" id="phDay">Today</a></li>
+                    <li><a class="dropdown-item" href="#" id="phWeek">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="phMonth">This Month</a></li>
                   </ul>
                 </div>
 
@@ -144,14 +144,39 @@
 
                   <script>
                     var phChart = null;
+                    function updatePHChartDayData() {
+                      var newData = [39, 55, 28];
+
+                      // Update the chart's data
+                      phChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }                    
+                    
                     function updatePHChartWeekData() {
-                      var newData = [39, 55, 28, 57, 42, 82, 56];
+                      var newData = [39, 55, 28, 57, 42, 82, 5];
+
+                      // Update the chart's data
+                      phChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }                    
+                    
+                    function updatePHChartMonthData() {
+                      var newData = [39, 55, 28, 57, 42, 82, 5,1,2,3,324,23,445,5,34];
 
                       // Update the chart's data
                       phChart.updateSeries([{
                         data: newData
                       }]);
                     }
+
+                    var dayPh = document.getElementById("phDay");
+                    dayPh.addEventListener("click", updatePHChartDayData);
+
+                    var monthPh = document.getElementById("phMonth");
+                    monthPh.addEventListener("click", updatePHChartMonthData);
+
                     var weekPh = document.getElementById("phWeek");
                     weekPh.addEventListener("click", updatePHChartWeekData);
 
@@ -232,8 +257,9 @@
                   <div id="turbudityChart"></div>
 
                   <script>
+                    var turbudityChart = null;
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#turbudityChart"), {
+                      turbudityChart = new ApexCharts(document.querySelector("#turbudityChart"), {
                         series: [{
                           name: 'Turbudity',
                           data: [31, 40, 28, 51, 42, 82, 56]
