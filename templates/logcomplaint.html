@@ -59,73 +59,9 @@
   </head>
 
   <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-      <div class="d-flex align-items-center justify-content-between">
-        <i class="bi bi-list toggle-sidebar-btn m-4"></i>
-        <a href="index.html" class="logo d-flex align-items-center">
-          <img
-            src="static/assets/img/cfrost-logo.png"
-            alt=""
-            style="border-radius: 50%"
-          />
-          <span class="d-none d-lg-block">AdminPanel</span>
-        </a>
-      </div>
-      <!-- End Logo -->
+    <main id="main" class="main" style="margin-left: 0; margin-top: 0;">
 
-      <div class="search-bar" style="margin-left: auto">
-        <form
-          class="search-form d-flex align-items-center"
-          method="POST"
-          action="#"
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search"
-            title="Enter search keyword"
-          />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
-      <!-- End Search Bar -->
-    </header>
-    <!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-      <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <!-- End Dashboard Nav -->
-
-        <li class="nav-item">
-          <a class="nav-link" href="/complaints">
-            <i class="bi bi-grid"></i>
-            <span>Complaints</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/logcomplaint">
-            <i class="bi bi-grid"></i>
-            <span>Log Complaint</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
-    <!-- End Sidebar-->
-
-    <main id="main" class="main">
-
-    <div class="pagetitle">
+    <div class="pagetitle" style="display: flex; flex-direction: column; align-items: center;">
       <h1>Log a Complaint</h1>
       <nav>
         <ol class="breadcrumb">
@@ -136,7 +72,7 @@
       </nav>
     </div><!-- End Page Title -->
     <section class="section">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-lg-6">
 
           <div class="card">

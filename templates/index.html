@@ -71,22 +71,14 @@
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
 
       <li class="nav-item">
         <a class="nav-link " href="/complaints">
           <i class="bi bi-grid"></i>
           <span>Complaints</span>
         </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/logcomplaint">
-          <i class="bi bi-grid"></i>
-          <span>Log Complaint</span>
-        </a>
-      </li>
-
+      </li><!-- End Dashboard Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -163,7 +155,7 @@
                     }                    
                     
                     function updatePHChartMonthData() {
-                      var newData = [39, 55, 28, 57, 42, 82, 5,1,2,3,324,23,445,5,34];
+                      var newData = [24, 66, 25, 48, 57, 60];
 
                       // Update the chart's data
                       phChart.updateSeries([{
@@ -244,9 +236,9 @@
                       <h6>Filter</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Week</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#" id="turbidityDay">Today</a></li>
+                    <li><a class="dropdown-item" href="#" id="turbidityWeek">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="turbidityMonth">This Month</a></li>
                   </ul>
                 </div>
 
@@ -254,12 +246,49 @@
                   <h5 class="card-title">Turbidity <span>/Today</span></h5>
 
                   <!-- Line Chart -->
-                  <div id="turbudityChart"></div>
+                  <div id="turbidityChart"></div>
 
                   <script>
-                    var turbudityChart = null;
+                    var turbidityChart = null;
+
+                    function updateTurbidityChartDayData() {
+                      var newData = [101, 45, 98, 76];
+                
+                      // Update the chart's data
+                      turbidityChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }                    
+                    
+                    function updateTurbidityChartWeekData() {
+                      var newData = [18, 71, 93, 54, 35, 84];
+                
+                      // Update the chart's data
+                      turbidityChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }                    
+                    
+                    function updateTurbidityChartMonthData() {
+                      var newData = [74, 32, 101, 87, 23, 59];
+                
+                      // Update the chart's data
+                      turbidityChart.updateSeries([{
+                        data: newData
+                      }]);
+                    }
+                
+                    var dayTurbidity = document.getElementById("turbidityDay");
+                    dayTurbidity.addEventListener("click", updateTurbidityChartDayData);
+                
+                    var monthTurbidity = document.getElementById("turbidityWeek");
+                    monthTurbidity.addEventListener("click", updateTurbidityChartWeekData);
+                
+                    var weekTurbidity = document.getElementById("turbidityMonth");
+                    weekTurbidity.addEventListener("click", updateTurbidityChartMonthData);
+
                     document.addEventListener("DOMContentLoaded", () => {
-                      turbudityChart = new ApexCharts(document.querySelector("#turbudityChart"), {
+                      turbidityChart = new ApexCharts(document.querySelector("#turbidityChart"), {
                         series: [{
                           name: 'Turbudity',
                           data: [31, 40, 28, 51, 42, 82, 56]
@@ -300,7 +329,9 @@
                             format: 'dd/MM/yy HH:mm'
                           },
                         }
-                      }).render();
+                      })
+                      
+                      turbidityChart.render();
                     });
                   </script>
                   <!-- End Line Chart -->
@@ -319,9 +350,9 @@
                       <h6>Filter</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Week</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#" id="temperatureDay">Today</a></li>
+                    <li><a class="dropdown-item" href="#" id="temperatureWeek">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="temperatureMonth">This Month</a></li>
                   </ul>
                 </div>
 
@@ -332,51 +363,92 @@
                   <div id="temperatureChart"></div>
 
                   <script>
+                    var temperatureChart = null;
+                
+                    function updateTemperatureChartDayData() {
+                        var newData = [24, 66, 25, 48];
+                    
+                        // Update the chart's data
+                        temperatureChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }                    
+                
+                    function updateTemperatureChartWeekData() {
+                        var newData = [57, 60, 82, 50, 33, 70];
+                    
+                        // Update the chart's data
+                        temperatureChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }                    
+                
+                    function updateTemperatureChartMonthData() {
+                        var newData = [74, 32, 101, 87, 23, 59];
+                    
+                        // Update the chart's data
+                        temperatureChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }
+                
+                    var dayTemperature = document.getElementById("temperatureDay");
+                    dayTemperature.addEventListener("click", updateTemperatureChartDayData);
+                
+                    var weekTemperature = document.getElementById("temperatureWeek");
+                    weekTemperature.addEventListener("click", updateTemperatureChartWeekData);
+                
+                    var monthTemperature = document.getElementById("temperatureMonth");
+                    monthTemperature.addEventListener("click", updateTemperatureChartMonthData);
+                
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#temperatureChart"), {
-                        series: [{
-                          name: 'Temperature',
-                          data: [31, 40, 28, 51, 42, 82, 56]
-                        }],
-                        chart: {
-                          height: 200,
-                          type: 'area',
-                          toolbar: {
-                            show: true
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
+                        temperatureChart = new ApexCharts(document.querySelector("#temperatureChart"), {
+                            series: [{
+                                name: 'Temperature',
+                                data: [31, 40, 28, 51, 42, 82, 56]
+                            }],
+                            chart: {
+                                height: 200,
+                                type: 'area',
+                                toolbar: {
+                                    show: true
+                                },
+                            },
+                            markers: {
+                                size: 4
+                            },
+                            colors: ['#2eca6a', '#ff771d'],
+                            fill: {
+                                type: "gradient",
+                                gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100]
+                                }
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            stroke: {
+                                curve: 'smooth',
+                                width: 2
+                            },
+                            xaxis: {
+                                type: 'datetime',
+                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                            },
+                            tooltip: {
+                                x: {
+                                    format: 'dd/MM/yy HH:mm'
+                                },
+                            }
+                        })
+                
+                        temperatureChart.render();
                     });
-                  </script>
+                </script>
+                
                   <!-- End Line Chart -->
 
                 </div>
@@ -393,9 +465,9 @@
                       <h6>Filter</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Week</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#" id="humidityDay">Today</a></li>
+                    <li><a class="dropdown-item" href="#" id="humidityWeek">This Week</a></li>
+                    <li><a class="dropdown-item" href="#" id="humidityMonth">This Month</a></li>
                   </ul>
                 </div>
 
@@ -406,51 +478,92 @@
                   <div id="humidityChart"></div>
 
                   <script>
+                    var humidityChart = null;
+                
+                    function updateHumidityChartDayData() {
+                        var newData = [56, 78, 62, 45];
+                    
+                        // Update the chart's data
+                        humidityChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }                    
+                
+                    function updateHumidityChartWeekData() {
+                        var newData = [42, 37, 59, 64, 50, 46];
+                    
+                        // Update the chart's data
+                        humidityChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }                    
+                
+                    function updateHumidityChartMonthData() {
+                        var newData = [71, 83, 45, 53, 68, 72];
+                    
+                        // Update the chart's data
+                        humidityChart.updateSeries([{
+                            data: newData
+                        }]);
+                    }
+                
+                    var dayHumidity = document.getElementById("humidityDay");
+                    dayHumidity.addEventListener("click", updateHumidityChartDayData);
+                
+                    var weekHumidity = document.getElementById("humidityWeek");
+                    weekHumidity.addEventListener("click", updateHumidityChartWeekData);
+                
+                    var monthHumidity = document.getElementById("humidityMonth");
+                    monthHumidity.addEventListener("click", updateHumidityChartMonthData);
+                
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#humidityChart"), {
-                        series: [{
-                          name: 'Humiditydity',
-                          data: [31, 40, 28, 51, 42, 82, 56]
-                        }],
-                        chart: {
-                          height: 200,
-                          type: 'line',
-                          toolbar: {
-                            show: true
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                        
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
+                        humidityChart = new ApexCharts(document.querySelector("#humidityChart"), {
+                            series: [{
+                                name: 'Humidity',
+                                data: [58, 63, 55, 62, 57, 61, 59]
+                            }],
+                            chart: {
+                                height: 200,
+                                type: 'area',
+                                toolbar: {
+                                    show: true
+                                },
+                            },
+                            markers: {
+                                size: 4
+                            },
+                            colors: ['#2eca6a', '#ff771d'],
+                            fill: {
+                                type: "gradient",
+                                gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100]
+                                }
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            stroke: {
+                                curve: 'smooth',
+                                width: 2
+                            },
+                            xaxis: {
+                                type: 'datetime',
+                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                            },
+                            tooltip: {
+                                x: {
+                                    format: 'dd/MM/yy HH:mm'
+                                },
+                            }
+                        })
+                
+                        humidityChart.render();
                     });
-                  </script>
+                </script>
+                
                   <!-- End Line Chart -->
 
                 </div>
