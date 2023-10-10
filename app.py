@@ -10,3 +10,13 @@ def index():
 def login():
 
     return render_template('pages-login.html')
+
+@app.route('/complaints')
+def complaints():
+    
+    return render_template('complaints.html')
+
+@app.route('/logcomplaint')
+def logcomplaint():
+    
+    return render_template('logcomplaint.html')
