@@ -1062,6 +1062,449 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Flow Rate <span>/Today</span>
+                    </h5>
+
+                    <!-- Line Chart -->
+                    <div id="flowChart"></div>
+
+                    <script>
+                      var flowChart = null;
+
+                      function updateFlowChartDayData() {
+                        var newData = [56, 78, 62, 45];
+
+                        // Update the chart's data
+                        flowChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updateFlowChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.flowrate,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateFlowChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateFlowChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var dayFlow = document.getElementById("flowDay");
+                      dayFlow.addEventListener("click", updateFlowChartDayData);
+
+                      var weekFlow = document.getElementById("flowWeek");
+                      weekFlow.addEventListener("click", () =>
+                        updateFlowChartWeekData("21827553", "flowrate")
+                      );
+
+                      var monthFlow = document.getElementById("flowMonth");
+                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("21827553", 2023, "9", "flowrate"));
+
+                      var yearFlow = document.getElementById("flowYear");
+                      yearFlow.addEventListener("click", () => updateFlowChartYearData("21827553", 2023, "flowrate"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        flowChart = new ApexCharts(
+                          document.querySelector("#flowChart"),
+                          {
+                            series: [
+                              {
+                                name: "Flow Rate",
+                                data: [58, 63, 55, 62, 57, 61, 59],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        flowChart.render();
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown">
+                      <i class="bi bi-three-dots"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+              
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsWeek">Last 7 Days</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsMonth">This Month</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsYear">This Year</a>
+                      </li>
+                    </ul>
+                  </div>
+              
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      TDS Value <span>/ Today</span>
+                    </h5>
+              
+                    <!-- Line Chart -->
+                    <div id="tdsChart"></div>
+              
+                    <script>
+                      var tdsChart = null;
+              
+                      function updateTDSChartDayData() {
+                        var newData = [56, 78, 62, 45]; // Sample data, replace with actual data
+              
+                        // Update the chart's data
+                        tdsChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+              
+                      function updateTDSChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.tdsvalue, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      function updateTDSChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      function updateTDSChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      var tdsDay = document.getElementById("tdsDay");
+                      tdsDay.addEventListener("click", updateTDSChartDayData);
+              
+                      var tdsWeek = document.getElementById("tdsWeek");
+                      tdsWeek.addEventListener("click", () =>
+                        updateTDSChartWeekData("21827553", "tdsvalue")
+                      );
+              
+                      var tdsMonth = document.getElementById("tdsMonth");
+                      tdsMonth.addEventListener("click", () =>
+                        updateTDSChartMonthData("21827553", 2023, "9", "tdsvalue")
+                      );
+              
+                      var tdsYear = document.getElementById("tdsYear");
+                      tdsYear.addEventListener("click", () =>
+                        updateTDSChartYearData("21827553", 2023, "tdsvalue")
+                      );
+              
+                      document.addEventListener("DOMContentLoaded", () => {
+                        tdsChart = new ApexCharts(
+                          document.querySelector("#tdsChart"),
+                          {
+                            series: [
+                              {
+                                name: "TDS Value",
+                                data: [58, 63, 55, 62, 57, 61, 59], // Sample data, replace with actual data
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+              
+                        tdsChart.render();
+                      });
+                    </script>
+              
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>              
+              
               <!-- End Reports -->
 
               <!-- Recent Sales -->
