@@ -67,7 +67,7 @@ def societyApi(society_id,value_type):
             values.append(ph_value)
 
     if len(timestamps) == 0 or len(values) == 0:
-        return jsonify({"error": "No valid data found for the specified society_id"})
+        return jsonify({value_type: [], 'timestamps': []})
 
     # Sort the data by timestamps
     sorted_data = sorted(zip(timestamps, values), key=lambda x: x[0], reverse=True)
@@ -202,6 +202,10 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
         key_averages["timestamp"] = values[0]["timestamp"]
         averages[key] = key_averages
         week_labels.append(f'wk{key}')  # Create week labels
+        
+    # Check if averages is empty, and return the empty response if there's no data
+    if not averages:
+        return jsonify({'weeks': [], 'values': []})
 
     # Sort week labels and values based on week numbers
     sorted_weeks_and_values = sorted(zip(week_labels, [entry[value_type] for entry in averages.values()]), key=lambda x: int(x[0][2:]))
