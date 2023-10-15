@@ -1,836 +1,1821 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{{title}}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
 
-  <title>{{title}}</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="static/assets/img/favicon.png" rel="icon" />
+    <link
+      href="static/assets/img/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
 
-  <!-- Favicons -->
-  <link href="static/assets/img/favicon.png" rel="icon">
-  <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link
+      href="static/assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/assets/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="static/assets/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/assets/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
 
-  <!-- Vendor CSS Files -->
-  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="static/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="static/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="static/assets/css/style.css" rel="stylesheet" />
 
-  <!-- Template Main CSS File -->
-  <link href="static/assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
+    <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
+  </head>
 
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <i class="bi bi-list toggle-sidebar-btn m-4"></i>
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="static/assets/img/cfrost-logo.png" alt="" style="border-radius: 50%;">
-        <span class="d-none d-lg-block">AdminPanel</span>
-      </a>
-    </div><!-- End Logo -->
-
-    <div class="search-bar" style="margin-left: auto;">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-
-  </header><!-- End Header -->
-
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="/">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <i class="bi bi-list toggle-sidebar-btn m-4"></i>
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img
+            src="static/assets/img/cfrost-logo.png"
+            alt=""
+            style="border-radius: 50%"
+          />
+          <span class="d-none d-lg-block">AdminPanel</span>
         </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link " href="/complaints">
-          <i class="bi bi-grid"></i>
-          <span>Complaints</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-    </ul>
-
-  </aside><!-- End Sidebar-->
-
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Society</a></li>
-          <li class="breadcrumb-item active">1234</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-      <div class="row">
-
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
-
-            <!-- Sales Card -->
-          <!-- End Sales Card -->
-
-            <!-- Revenue Card -->
-           <!-- End Revenue Card -->
-
-            <!-- Customers Card -->
-            <!-- End Customers Card -->
-
-            <!-- Reports -->
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#" id="phDay">Today</a></li>
-                    <li><a class="dropdown-item" href="#" id="phWeek">This Week</a></li>
-                    <li><a class="dropdown-item" href="#" id="phMonth">This Month</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">PH <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="phChart"></div>
-
-                  <script>
-                    var phChart = null;
-                    function updatePHChartDayData() {
-                      var newData = [39, 55, 28];
-
-                      // Update the chart's data
-                      phChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }                    
-                    
-                    function updatePHChartWeekData() {
-                      var newData = [39, 55, 28, 57, 42, 82, 5];
-
-                      // Update the chart's data
-                      phChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }                    
-                    
-                    function updatePHChartMonthData() {
-                      var newData = [24, 66, 25, 48, 57, 60];
-
-                      // Update the chart's data
-                      phChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }
-
-                    var dayPh = document.getElementById("phDay");
-                    dayPh.addEventListener("click", updatePHChartDayData);
-
-                    var monthPh = document.getElementById("phMonth");
-                    monthPh.addEventListener("click", updatePHChartMonthData);
-
-                    var weekPh = document.getElementById("phWeek");
-                    weekPh.addEventListener("click", updatePHChartWeekData);
-
-                    document.addEventListener("DOMContentLoaded", () => {
-                      phChart = new ApexCharts(document.querySelector("#phChart"), {
-                        series: [{
-                          name: 'PH',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }],
-                        chart: {
-                          height: 200,
-                          type: 'area',
-                          toolbar: {
-                            show: true
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      });
-                    
-                      phChart.render();
-                      console.log(phChart)
-                    });
-                  </script>
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#" id="turbidityDay">Today</a></li>
-                    <li><a class="dropdown-item" href="#" id="turbidityWeek">This Week</a></li>
-                    <li><a class="dropdown-item" href="#" id="turbidityMonth">This Month</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Turbidity <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="turbidityChart"></div>
-
-                  <script>
-                    var turbidityChart = null;
-
-                    function updateTurbidityChartDayData() {
-                      var newData = [101, 45, 98, 76];
-                
-                      // Update the chart's data
-                      turbidityChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }                    
-                    
-                    function updateTurbidityChartWeekData() {
-                      var newData = [18, 71, 93, 54, 35, 84];
-                
-                      // Update the chart's data
-                      turbidityChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }                    
-                    
-                    function updateTurbidityChartMonthData() {
-                      var newData = [74, 32, 101, 87, 23, 59];
-                
-                      // Update the chart's data
-                      turbidityChart.updateSeries([{
-                        data: newData
-                      }]);
-                    }
-                
-                    var dayTurbidity = document.getElementById("turbidityDay");
-                    dayTurbidity.addEventListener("click", updateTurbidityChartDayData);
-                
-                    var monthTurbidity = document.getElementById("turbidityWeek");
-                    monthTurbidity.addEventListener("click", updateTurbidityChartWeekData);
-                
-                    var weekTurbidity = document.getElementById("turbidityMonth");
-                    weekTurbidity.addEventListener("click", updateTurbidityChartMonthData);
-
-                    document.addEventListener("DOMContentLoaded", () => {
-                      turbidityChart = new ApexCharts(document.querySelector("#turbidityChart"), {
-                        series: [{
-                          name: 'Turbudity',
-                          data: [31, 40, 28, 51, 42, 82, 56]
-                        }],
-                        chart: {
-                          height: 200,
-                          type: 'area',
-                          toolbar: {
-                            show: true
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      })
-                      
-                      turbidityChart.render();
-                    });
-                  </script>
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#" id="temperatureDay">Today</a></li>
-                    <li><a class="dropdown-item" href="#" id="temperatureWeek">This Week</a></li>
-                    <li><a class="dropdown-item" href="#" id="temperatureMonth">This Month</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Temperature <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="temperatureChart"></div>
-
-                  <script>
-                    var temperatureChart = null;
-                
-                    function updateTemperatureChartDayData() {
-                        var newData = [24, 66, 25, 48];
-                    
-                        // Update the chart's data
-                        temperatureChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }                    
-                
-                    function updateTemperatureChartWeekData() {
-                        var newData = [57, 60, 82, 50, 33, 70];
-                    
-                        // Update the chart's data
-                        temperatureChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }                    
-                
-                    function updateTemperatureChartMonthData() {
-                        var newData = [74, 32, 101, 87, 23, 59];
-                    
-                        // Update the chart's data
-                        temperatureChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }
-                
-                    var dayTemperature = document.getElementById("temperatureDay");
-                    dayTemperature.addEventListener("click", updateTemperatureChartDayData);
-                
-                    var weekTemperature = document.getElementById("temperatureWeek");
-                    weekTemperature.addEventListener("click", updateTemperatureChartWeekData);
-                
-                    var monthTemperature = document.getElementById("temperatureMonth");
-                    monthTemperature.addEventListener("click", updateTemperatureChartMonthData);
-                
-                    document.addEventListener("DOMContentLoaded", () => {
-                        temperatureChart = new ApexCharts(document.querySelector("#temperatureChart"), {
-                            series: [{
-                                name: 'Temperature',
-                                data: [31, 40, 28, 51, 42, 82, 56]
-                            }],
-                            chart: {
-                                height: 200,
-                                type: 'area',
-                                toolbar: {
-                                    show: true
-                                },
-                            },
-                            markers: {
-                                size: 4
-                            },
-                            colors: ['#2eca6a', '#ff771d'],
-                            fill: {
-                                type: "gradient",
-                                gradient: {
-                                    shadeIntensity: 1,
-                                    opacityFrom: 0.3,
-                                    opacityTo: 0.4,
-                                    stops: [0, 90, 100]
-                                }
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            stroke: {
-                                curve: 'smooth',
-                                width: 2
-                            },
-                            xaxis: {
-                                type: 'datetime',
-                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                            },
-                            tooltip: {
-                                x: {
-                                    format: 'dd/MM/yy HH:mm'
-                                },
-                            }
-                        })
-                
-                        temperatureChart.render();
-                    });
-                </script>
-                
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#" id="humidityDay">Today</a></li>
-                    <li><a class="dropdown-item" href="#" id="humidityWeek">This Week</a></li>
-                    <li><a class="dropdown-item" href="#" id="humidityMonth">This Month</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Humidity <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="humidityChart"></div>
-
-                  <script>
-                    var humidityChart = null;
-                
-                    function updateHumidityChartDayData() {
-                        var newData = [56, 78, 62, 45];
-                    
-                        // Update the chart's data
-                        humidityChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }                    
-                
-                    function updateHumidityChartWeekData() {
-                        var newData = [42, 37, 59, 64, 50, 46];
-                    
-                        // Update the chart's data
-                        humidityChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }                    
-                
-                    function updateHumidityChartMonthData() {
-                        var newData = [71, 83, 45, 53, 68, 72];
-                    
-                        // Update the chart's data
-                        humidityChart.updateSeries([{
-                            data: newData
-                        }]);
-                    }
-                
-                    var dayHumidity = document.getElementById("humidityDay");
-                    dayHumidity.addEventListener("click", updateHumidityChartDayData);
-                
-                    var weekHumidity = document.getElementById("humidityWeek");
-                    weekHumidity.addEventListener("click", updateHumidityChartWeekData);
-                
-                    var monthHumidity = document.getElementById("humidityMonth");
-                    monthHumidity.addEventListener("click", updateHumidityChartMonthData);
-                
-                    document.addEventListener("DOMContentLoaded", () => {
-                        humidityChart = new ApexCharts(document.querySelector("#humidityChart"), {
-                            series: [{
-                                name: 'Humidity',
-                                data: [58, 63, 55, 62, 57, 61, 59]
-                            }],
-                            chart: {
-                                height: 200,
-                                type: 'area',
-                                toolbar: {
-                                    show: true
-                                },
-                            },
-                            markers: {
-                                size: 4
-                            },
-                            colors: ['#2eca6a', '#ff771d'],
-                            fill: {
-                                type: "gradient",
-                                gradient: {
-                                    shadeIntensity: 1,
-                                    opacityFrom: 0.3,
-                                    opacityTo: 0.4,
-                                    stops: [0, 90, 100]
-                                }
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            stroke: {
-                                curve: 'smooth',
-                                width: 2
-                            },
-                            xaxis: {
-                                type: 'datetime',
-                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                            },
-                            tooltip: {
-                                x: {
-                                    format: 'dd/MM/yy HH:mm'
-                                },
-                            }
-                        })
-                
-                        humidityChart.render();
-                    });
-                </script>
-                
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div>
-            <!-- End Reports -->
-
-            <!-- Recent Sales -->
-            <!-- End Recent Sales -->
-
-            <!-- Top Selling -->
-           <!-- End Top Selling -->
-
-          </div>
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-          <!-- Recent Activity -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><button type="button" class="btn btn-primary dropdown-item">View All</button></li>
-               
-              </ul>
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">Recent Logs <span>| Today</span></h5>
-
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div><!-- End activity item-->
-
-              </div>
-
-            </div>
-          </div><!-- End Recent Activity -->
-
-          <!-- Budget Report -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">Quality Report <span>| Today</span></h5>
-
-              <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                    legend: {
-                      data: ['Expected Value', 'Actual Value']
-                    },
-                    radar: {
-                      // shape: 'circle',
-                      indicator: [{
-                          name: 'Sales',
-                          max: 6500
-                        },
-                        {
-                          name: 'Administration',
-                          max: 16000
-                        },
-                        {
-                          name: 'Information Technology',
-                          max: 30000
-                        },
-                        {
-                          name: 'Customer Support',
-                          max: 38000
-                        },
-                        {
-                          name: 'Development',
-                          max: 52000
-                        },
-                        {
-                          name: 'Marketing',
-                          max: 25000
-                        }
-                      ]
-                    },
-                    series: [{
-                      name: 'Budget vs spending',
-                      type: 'radar',
-                      data: [{
-                          value: [4200, 3000, 20000, 35000, 50000, 18000],
-                          name: 'Expected Value'
-                        },
-                        {
-                          value: [5000, 14000, 28000, 26000, 42000, 21000],
-                          name: 'Actual Value'
-                        }
-                      ]
-                    }]
-                  });
-                });
-              </script>
-
-            </div>
-          </div><!-- End Budget Report -->
-
-          <!-- Website Traffic -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">Quality <span>| Current</span></h5>
-
-              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      top: '5%',
-                      left: 'center'
-                    },
-                    series: [{
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: ['40%', '70%'],
-                      avoidLabelOverlap: false,
-                      label: {
-                        show: false,
-                        position: 'center'
-                      },
-                      emphasis: {
-                        label: {
-                          show: true,
-                          fontSize: '18',
-                          fontWeight: 'bold'
-                        }
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                      data: [{
-                          value: 1048,
-                          name: 'Good'
-                        },
-                        {
-                          value: 0,
-                          name: 'Excellent'
-                        },
-                        {
-                          value: 0,
-                          name: 'Average'
-                        },
-                        {
-                          value: 0,
-                          name: 'Poor'
-                        },
-                        {
-                          value: 0,
-                          name: 'Very Poor'
-                        }
-                      ]
-                    }]
-                  });
-                });
-              </script>
-
-            </div>
-          </div><!-- End Website Traffic -->
-
-          <!-- News & Updates Traffic -->
-        <!-- End News & Updates -->
-
-        </div><!-- End Right side columns -->
-
       </div>
-    </section>
+      <!-- End Logo -->
 
-  </main><!-- End #main -->
+      <div class="search-bar" style="margin-left: auto">
+        <form
+          class="search-form d-flex align-items-center"
+          method="POST"
+          action="#"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search"
+            title="Enter search keyword"
+          />
+          <button type="submit" title="Search">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+      <!-- End Search Bar -->
+    </header>
+    <!-- End Header -->
 
-  <!-- Vendor JS Files -->
-  <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="static/assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="static/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="static/assets/vendor/quill/quill.min.js"></script>
-  <script src="static/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="static/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="static/assets/vendor/php-email-form/validate.js"></script>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
 
-  <!-- Template Main JS File -->
-  <script src="static/assets/js/main.js"></script>
+        <li class="nav-item">
+          <a class="nav-link" href="/complaints">
+            <i class="bi bi-grid"></i>
+            <span>Complaints</span>
+          </a>
+        </li>
+        <!-- End Dashboard Nav -->
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
 
-</body>
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Society</a></li>
+            <li class="breadcrumb-item active">1234</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
 
+      <section class="section dashboard">
+        <div class="row">
+          <!-- Left side columns -->
+          <div class="col-lg-8">
+            <div class="row">
+              <!-- Sales Card -->
+              <!-- End Sales Card -->
+
+              <!-- Revenue Card -->
+              <!-- End Revenue Card -->
+
+              <!-- Customers Card -->
+              <!-- End Customers Card -->
+
+              <!-- Reports -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="phDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="phWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="phMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="phYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">PH <span>/Today</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="phChart"></div>
+
+                    <script>
+                      var phChart = null;
+                      function updatePHChartDayData(societyId, valueType) {
+                        var newData = [74, 12, 10, 27, 53, 89];
+
+                        // Update the chart's data
+                        phChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updatePHChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            // Update the chart's data
+                            phChart.updateSeries([
+                              {
+                                data: data.phvalue,
+                              },
+                            ]);
+
+                            phChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updatePHChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            phChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            phChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updatePHChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            phChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            phChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var dayPh = document.getElementById("phDay");
+                      dayPh.addEventListener("click", updatePHChartDayData);
+
+                      var weekPh = document.getElementById("phWeek");
+                      weekPh.addEventListener("click", () => updatePHChartWeekData("21827553", "phvalue"));
+
+                      var monthPh = document.getElementById("phMonth");
+                      monthPh.addEventListener("click",() => updatePHChartMonthData("21827553", 2023, "9", "phvalue"));
+
+                      var yearPh = document.getElementById("phYear");
+                      yearPh.addEventListener("click", () => updatePHChartYearData("21827553", 2023, "phvalue"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        phChart = new ApexCharts(
+                          document.querySelector("#phChart"),
+                          {
+                            series: [
+                              {
+                                name: "PH",
+                                data: [31, 40, 28, 51, 42, 82, 56],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        phChart.render();
+                        console.log(phChart);
+                      });
+                    </script>
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityDay"
+                          >Today</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Turbidity <span>/Today</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="turbidityChart"></div>
+
+                    <script>
+                      var turbidityChart = null;
+
+                      function updateTurbidityChartDayData() {
+                        var newData = [101, 45, 98, 76];
+
+                        // Update the chart's data
+                        turbidityChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updateTurbidityChartWeekData(
+                        societyId,
+                        valueType
+                      ) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            turbidityChart.updateSeries([
+                              {
+                                data: data.turbidityvalue,
+                              },
+                            ]);
+
+                            turbidityChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTurbidityChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            turbidityChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            turbidityChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTurbidityChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            turbidityChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            turbidityChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var dayTurbidity =
+                        document.getElementById("turbidityDay");
+                      dayTurbidity.addEventListener(
+                        "click",
+                        updateTurbidityChartDayData
+                      );
+
+                      var weekTurbidity =
+                        document.getElementById("turbidityWeek");
+                        weekTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartWeekData("21827553", "turbidityvalue")
+                      );
+                      
+
+                      var monthTurbidity =
+                        document.getElementById("turbidityMonth");
+                      monthTurbidity.addEventListener(
+                        "click",
+                        () =>  updateTurbidityChartMonthData("21827553",2023,9,"turbidityvalue")
+                      );
+
+
+                      var yearTurbidity =
+                        document.getElementById("turbidityYear");
+                      yearTurbidity.addEventListener(
+                        "click",
+                        () => updateTurbidityChartYearData("21827553", 2023, "turbidityvalue")
+                      );
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        turbidityChart = new ApexCharts(
+                          document.querySelector("#turbidityChart"),
+                          {
+                            series: [
+                              {
+                                name: "Turbudity",
+                                data: [31, 40, 28, 51, 42, 82, 56],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        turbidityChart.render();
+                      });
+                    </script>
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureDay"
+                          >Today</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Temperature <span>/Today</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="temperatureChart"></div>
+
+                    <script>
+                      var temperatureChart = null;
+
+                      function updateTemperatureChartDayData() {
+                        var newData = [74, 32, 101, 87, 23, 59];
+
+                        // Update the chart's data
+                        temperatureChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updateTemperatureChartWeekData(
+                        societyId,
+                        valueType
+                      ) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            temperatureChart.updateSeries([
+                              {
+                                data: data.temperature,
+                              },
+                            ]);
+
+                            temperatureChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTemperatureChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            temperatureChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            temperatureChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTemperatureChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            temperatureChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            temperatureChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+
+                      }
+
+                      var dayTemperature =
+                        document.getElementById("temperatureDay");
+                      dayTemperature.addEventListener(
+                        "click",
+                        updateTemperatureChartDayData
+                      );
+
+                      var weekTemperature =
+                        document.getElementById("temperatureWeek");
+                      weekTemperature.addEventListener("click", () =>
+                        updateTemperatureChartWeekData(
+                          "21827553",
+                          "temperature"
+                        )
+                      );
+
+                      var monthTemperature =
+                        document.getElementById("temperatureMonth");
+                      monthTemperature.addEventListener(
+                        "click",
+                        () => updateTemperatureChartMonthData("21827553", 2023, "9", "temperature")
+                      );
+
+                      var yearTemperature =
+                        document.getElementById("temperatureYear");
+                      yearTemperature.addEventListener(
+                        "click",
+                        () => updateTemperatureChartYearData("21827553", 2023, "temperature")
+                      );
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        temperatureChart = new ApexCharts(
+                          document.querySelector("#temperatureChart"),
+                          {
+                            series: [
+                              {
+                                name: "Temperature",
+                                data: [31, 40, 28, 51, 42, 82, 56],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        temperatureChart.render();
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Electrical Conductivity <span>/Today</span>
+                    </h5>
+
+                    <!-- Line Chart -->
+                    <div id="ecChart"></div>
+
+                    <script>
+                      var ecChart = null;
+
+                      function updateEcChartDayData() {
+                        var newData = [56, 78, 62, 45];
+
+                        // Update the chart's data
+                        ecChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updateEcChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            ecChart.updateSeries([
+                              {
+                                data: data.ecvalue,
+                              },
+                            ]);
+
+                            ecChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateEcChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            ecChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            ecChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateEcChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            ecChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            ecChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var dayEc = document.getElementById("ecDay");
+                      dayEc.addEventListener("click", updateEcChartDayData);
+
+                      var weekEc = document.getElementById("ecWeek");
+                      weekEc.addEventListener("click", () =>
+                        updateEcChartWeekData("21827553", "ecvalue")
+                      );
+
+                      var monthEc = document.getElementById("ecMonth");
+                      monthEc.addEventListener("click", () => updateEcChartMonthData("21827553", 2023, "9", "ecvalue"));
+
+                      var yearEc = document.getElementById("ecYear");
+                      yearEc.addEventListener("click", () => updateEcChartYearData("21827553", 2023, "ecvalue"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        ecChart = new ApexCharts(
+                          document.querySelector("#ecChart"),
+                          {
+                            series: [
+                              {
+                                name: "Electrical Conductivity",
+                                data: [58, 63, 55, 62, 57, 61, 59],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        ecChart.render();
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowWeek"
+                          >Last 7 Days</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Flow Rate <span>/Today</span>
+                    </h5>
+
+                    <!-- Line Chart -->
+                    <div id="flowChart"></div>
+
+                    <script>
+                      var flowChart = null;
+
+                      function updateFlowChartDayData() {
+                        var newData = [56, 78, 62, 45];
+
+                        // Update the chart's data
+                        flowChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+
+                      function updateFlowChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.flowrate,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateFlowChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateFlowChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var dayFlow = document.getElementById("flowDay");
+                      dayFlow.addEventListener("click", updateFlowChartDayData);
+
+                      var weekFlow = document.getElementById("flowWeek");
+                      weekFlow.addEventListener("click", () =>
+                        updateFlowChartWeekData("21827553", "flowrate")
+                      );
+
+                      var monthFlow = document.getElementById("flowMonth");
+                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("21827553", 2023, "9", "flowrate"));
+
+                      var yearFlow = document.getElementById("flowYear");
+                      yearFlow.addEventListener("click", () => updateFlowChartYearData("21827553", 2023, "flowrate"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        flowChart = new ApexCharts(
+                          document.querySelector("#flowChart"),
+                          {
+                            series: [
+                              {
+                                name: "Flow Rate",
+                                data: [58, 63, 55, 62, 57, 61, 59],
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+
+                        flowChart.render();
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown">
+                      <i class="bi bi-three-dots"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+              
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsDay">Today</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsWeek">Last 7 Days</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsMonth">This Month</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsYear">This Year</a>
+                      </li>
+                    </ul>
+                  </div>
+              
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      TDS Value <span>/ Today</span>
+                    </h5>
+              
+                    <!-- Line Chart -->
+                    <div id="tdsChart"></div>
+              
+                    <script>
+                      var tdsChart = null;
+              
+                      function updateTDSChartDayData() {
+                        var newData = [56, 78, 62, 45]; // Sample data, replace with actual data
+              
+                        // Update the chart's data
+                        tdsChart.updateSeries([
+                          {
+                            data: newData,
+                          },
+                        ]);
+                      }
+              
+                      function updateTDSChartWeekData(societyId, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        fetch(
+                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.tdsvalue, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "datetime",
+                                  categories: data.timestamps,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      function updateTDSChartMonthData(societyId, year, month, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      function updateTDSChartYearData(societyId, year, valueType) {
+                        societyId = societyId ? societyId : "21827553";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      var tdsDay = document.getElementById("tdsDay");
+                      tdsDay.addEventListener("click", updateTDSChartDayData);
+              
+                      var tdsWeek = document.getElementById("tdsWeek");
+                      tdsWeek.addEventListener("click", () =>
+                        updateTDSChartWeekData("21827553", "tdsvalue")
+                      );
+              
+                      var tdsMonth = document.getElementById("tdsMonth");
+                      tdsMonth.addEventListener("click", () =>
+                        updateTDSChartMonthData("21827553", 2023, "9", "tdsvalue")
+                      );
+              
+                      var tdsYear = document.getElementById("tdsYear");
+                      tdsYear.addEventListener("click", () =>
+                        updateTDSChartYearData("21827553", 2023, "tdsvalue")
+                      );
+              
+                      document.addEventListener("DOMContentLoaded", () => {
+                        tdsChart = new ApexCharts(
+                          document.querySelector("#tdsChart"),
+                          {
+                            series: [
+                              {
+                                name: "TDS Value",
+                                data: [58, 63, 55, 62, 57, 61, 59], // Sample data, replace with actual data
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#2eca6a", "#ff771d"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "datetime",
+                              categories: [
+                                "2018-09-19T00:00:00.000Z",
+                                "2018-09-19T01:30:00.000Z",
+                                "2018-09-19T02:30:00.000Z",
+                                "2018-09-19T03:30:00.000Z",
+                                "2018-09-19T04:30:00.000Z",
+                                "2018-09-19T05:30:00.000Z",
+                                "2018-09-19T06:30:00.000Z",
+                              ],
+                            },
+                            tooltip: {
+                              x: {
+                                format: "dd/MM/yy HH:mm",
+                              },
+                            },
+                          }
+                        );
+              
+                        tdsChart.render();
+                      });
+                    </script>
+              
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>              
+              
+              <!-- End Reports -->
+
+              <!-- Recent Sales -->
+              <!-- End Recent Sales -->
+
+              <!-- Top Selling -->
+              <!-- End Top Selling -->
+            </div>
+          </div>
+          <!-- End Left side columns -->
+
+          <!-- Right side columns -->
+          <div class="col-lg-4">
+            <!-- Recent Activity -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li>
+                    <button type="button" class="btn btn-primary dropdown-item">
+                      View All
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Recent Logs <span>| Today</span></h5>
+
+                <div class="activity">
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">32 min</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-success align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Quia quae rerum
+                      <a href="#" class="fw-bold text-dark"
+                        >explicabo officiis</a
+                      >
+                      beatae
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">56 min</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-danger align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Voluptatem blanditiis blanditiis eveniet
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">2 hrs</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-primary align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Voluptates corrupti molestias voluptatem
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">1 day</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-info align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Tempore autem saepe
+                      <a href="#" class="fw-bold text-dark"
+                        >occaecati voluptatem</a
+                      >
+                      tempore
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">2 days</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-warning align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Est sit eum reiciendis exercitationem
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">4 weeks</div>
+                    <i
+                      class="bi bi-circle-fill activity-badge text-muted align-self-start"
+                    ></i>
+                    <div class="activity-content">
+                      Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                    </div>
+                  </div>
+                  <!-- End activity item-->
+                </div>
+              </div>
+            </div>
+            <!-- End Recent Activity -->
+
+            <!-- Budget Report -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">Quality Report <span>| Today</span></h5>
+
+                <div
+                  id="budgetChart"
+                  style="min-height: 400px"
+                  class="echart"
+                ></div>
+
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    var budgetChart = echarts
+                      .init(document.querySelector("#budgetChart"))
+                      .setOption({
+                        legend: {
+                          data: ["Expected Value", "Actual Value"],
+                        },
+                        radar: {
+                          // shape: 'circle',
+                          indicator: [
+                            {
+                              name: "Sales",
+                              max: 6500,
+                            },
+                            {
+                              name: "Administration",
+                              max: 16000,
+                            },
+                            {
+                              name: "Information Technology",
+                              max: 30000,
+                            },
+                            {
+                              name: "Customer Support",
+                              max: 38000,
+                            },
+                            {
+                              name: "Development",
+                              max: 52000,
+                            },
+                            {
+                              name: "Marketing",
+                              max: 25000,
+                            },
+                          ],
+                        },
+                        series: [
+                          {
+                            name: "Budget vs spending",
+                            type: "radar",
+                            data: [
+                              {
+                                value: [4200, 3000, 20000, 35000, 50000, 18000],
+                                name: "Expected Value",
+                              },
+                              {
+                                value: [
+                                  5000, 14000, 28000, 26000, 42000, 21000,
+                                ],
+                                name: "Actual Value",
+                              },
+                            ],
+                          },
+                        ],
+                      });
+                  });
+                </script>
+              </div>
+            </div>
+            <!-- End Budget Report -->
+
+            <!-- Website Traffic -->
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">Quality <span>| Current</span></h5>
+
+                <div
+                  id="trafficChart"
+                  style="min-height: 400px"
+                  class="echart"
+                ></div>
+
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    echarts
+                      .init(document.querySelector("#trafficChart"))
+                      .setOption({
+                        tooltip: {
+                          trigger: "item",
+                        },
+                        legend: {
+                          top: "5%",
+                          left: "center",
+                        },
+                        series: [
+                          {
+                            name: "Access From",
+                            type: "pie",
+                            radius: ["40%", "70%"],
+                            avoidLabelOverlap: false,
+                            label: {
+                              show: false,
+                              position: "center",
+                            },
+                            emphasis: {
+                              label: {
+                                show: true,
+                                fontSize: "18",
+                                fontWeight: "bold",
+                              },
+                            },
+                            labelLine: {
+                              show: false,
+                            },
+                            data: [
+                              {
+                                value: 1048,
+                                name: "Good",
+                              },
+                              {
+                                value: 0,
+                                name: "Excellent",
+                              },
+                              {
+                                value: 0,
+                                name: "Average",
+                              },
+                              {
+                                value: 0,
+                                name: "Poor",
+                              },
+                              {
+                                value: 0,
+                                name: "Very Poor",
+                              },
+                            ],
+                          },
+                        ],
+                      });
+                  });
+                </script>
+              </div>
+            </div>
+            <!-- End Website Traffic -->
+
+            <!-- News & Updates Traffic -->
+            <!-- End News & Updates -->
+          </div>
+          <!-- End Right side columns -->
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- Vendor JS Files -->
+    <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="static/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="static/assets/vendor/quill/quill.min.js"></script>
+    <script src="static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="static/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="static/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/assets/js/main.js"></script>
+  </body>
 </html>
