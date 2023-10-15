@@ -1,24 +1,46 @@
-from flask import Flask, render_template,jsonify
+from flask import Flask, render_template,jsonify,request,session,redirect
 import firebase_admin
 from firebase_admin import credentials,firestore
 from datetime import datetime, timedelta
 from flask_cors import CORS
-
-
+import uuid
+from functools import wraps
 cred = credentials.Certificate("./serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
-db = firestore.client()
 
+db = firestore.client()
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:5000"}})
+app.secret_key = "gccy7dfiygivlucxr7s76680tg9ug"
+
+def login_required(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if 'email' not in session:
+            return redirect('/login')
+        return func(*args, **kwargs)
+    return decorated_view
 
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html',title='Home')
 
-@app.route('/login')
+@app.route('/login',methods=['GET','POST'])
 def login():
-
+    if request.method == "POST":
+        email = request.form['email']
+        password = request.form['password']
+        user_ref = db.collection('user')
+        documents = user_ref.where('email', '==', email).stream()
+        user = {}
+        for doc in documents:
+            user = doc.to_dict()
+        if len(user)>=2 and user['password'] == password:
+            session['email'] = user['email']
+            return redirect('/')
+        else:
+            return render_template('pages-login.html',message="Login failed. Please check your credentials.")
     return render_template('pages-login.html')
 
 @app.route('/complaints')
@@ -26,9 +48,23 @@ def complaints():
     
     return render_template('complaints.html')
 
-@app.route('/logcomplaint')
+@app.route('/logcomplaint',methods=['GET','POST'])
 def logcomplaint():
-    
+    if request.method == "POST":
+        data = {}
+        data['id'] = str(uuid.uuid4())
+        data['name'] = request.form['name']
+        data['email'] = request.form['email']
+        data['phone'] = request.form['phone']
+        data['complaint'] = request.form['complaint']
+        data['society_id'] = int(request.form['society_id'])
+        data['timestamp'] = int(datetime.now().timestamp())
+        data['district'] = request.form['district']
+        data['status'] = 'pending'
+        data['level'] = 'society'
+        complaints_ref = db.collection('complaints')
+        complaints_ref.add(data)
+        return render_template('logcomplaint.html',message="Complaint logged successfully")
     return render_template('logcomplaint.html')
 
 
@@ -95,7 +131,6 @@ def societyAll():
     for doc in documents:
         data.append(doc.to_dict())
     data = sorted(data, key=lambda x: x["timestamp"], reverse=True)
-    print("done")
     return jsonify(data[-7:])
 
 # Get month data
