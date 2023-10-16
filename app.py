@@ -21,10 +21,10 @@ def login_required(func):
         return func(*args, **kwargs)
     return decorated_view
 
-@app.route('/')
+@app.route('/society/<society_id>')
 @login_required
-def index():
-    return render_template('index.html',title='Home')
+def index(society_id):
+    return render_template('index.html',title='Home',society_id=society_id)
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -38,7 +38,9 @@ def login():
             user = doc.to_dict()
         if len(user)>=2 and user['password'] == password:
             session['email'] = user['email']
-            return redirect('/')
+            if user['role'] == 'secretary':
+                session['society_id'] = user['society_id']
+            return redirect('/society/'+str(user['society_id']))
         else:
             return render_template('pages-login.html',message="Login failed. Please check your credentials.")
     return render_template('pages-login.html')
@@ -182,6 +184,74 @@ def societyAll():
 #         key_averages["timestamp"] = values[0]["timestamp"]
 #         averages[key] = key_averages
 #     return jsonify(averages)
+
+# Get district month data
+@app.route('/api/month/<district>/<year>/<month>/<value_type>')
+def calculate_average_district_weekly_data(district, year, month, value_type):
+    year = int(year)
+    month = int(month)
+
+    society_ref = db.collection('society')
+    documents = society_ref.where('district', '==', district).stream()
+
+    data = []
+    for doc in documents:
+        data.append(doc.to_dict())
+    
+    weekly_data = {}
+    start_date = datetime(year, month, 1)
+    if month == 12:
+        end_date = datetime(year + 1, 1, 1)
+    else:
+        end_date = datetime(year, month + 1, 1)
+
+    # Iterate through the data, filter it for the specified month and year, and group it by week
+    for entry in data:
+        entry_date = datetime.fromtimestamp(entry["timestamp"])
+        
+        if start_date <= entry_date < end_date:
+            week_number = (entry_date - start_date).days // 7 + 1
+            
+            if week_number not in weekly_data:
+                weekly_data[week_number] = []
+            
+            weekly_data[week_number].append(entry)
+
+    averages = {}
+    keys_to_average = [value_type]  # Use the specified value_type
+    week_labels = []  # Store week labels
+
+    for key, values in weekly_data.items():
+        key_averages = {}
+        for entry in values:
+            for key_to_average in keys_to_average:
+                if key_to_average not in key_averages:
+                    key_averages[key_to_average] = 0
+                key_averages[key_to_average] += entry[key_to_average]
+
+        if len(values) > 0:
+            for key_to_average in keys_to_average:
+                key_averages[key_to_average] /= len(values)
+                key_averages[key_to_average] = round(key_averages[key_to_average], 2)
+
+        key_averages["timestamp"] = values[0]["timestamp"]
+        averages[key] = key_averages
+        week_labels.append(f'wk{key}')  # Create week labels
+        
+    # Check if averages is empty, and return the empty response if there's no data
+    if not averages:
+        return jsonify({'weeks': [], 'values': []})
+
+    # Sort week labels and values based on week numbers
+    sorted_weeks_and_values = sorted(zip(week_labels, [entry[value_type] for entry in averages.values()]), key=lambda x: int(x[0][2:]))
+    sorted_week_labels, sorted_values = zip(*sorted_weeks_and_values)
+
+    response_data = {
+        'weeks': sorted_week_labels,
+        'values': sorted_values
+    }
+
+    return jsonify(response_data)
 
 
 # Get month data

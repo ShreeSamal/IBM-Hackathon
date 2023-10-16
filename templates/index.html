@@ -9,9 +9,9 @@
     <meta content="" name="keywords" />
 
     <!-- Favicons -->
-    <link href="static/assets/img/favicon.png" rel="icon" />
+    <link href="/static/assets/img/favicon.png" rel="icon" />
     <link
-      href="static/assets/img/apple-touch-icon.png"
+      href="/static/assets/img/apple-touch-icon.png"
       rel="apple-touch-icon"
     />
 
@@ -24,30 +24,30 @@
 
     <!-- Vendor CSS Files -->
     <link
-      href="static/assets/vendor/bootstrap/css/bootstrap.min.css"
+      href="/static/assets/vendor/bootstrap/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link
-      href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
       rel="stylesheet"
     />
     <link
-      href="static/assets/vendor/boxicons/css/boxicons.min.css"
+      href="/static/assets/vendor/boxicons/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link href="static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
-    <link href="static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
     <link
-      href="static/assets/vendor/remixicon/remixicon.css"
+      href="/static/assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
     />
     <link
-      href="static/assets/vendor/simple-datatables/style.css"
+      href="/static/assets/vendor/simple-datatables/style.css"
       rel="stylesheet"
     />
 
     <!-- Template Main CSS File -->
-    <link href="static/assets/css/style.css" rel="stylesheet" />
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -65,7 +65,7 @@
         <i class="bi bi-list toggle-sidebar-btn m-4"></i>
         <a href="index.html" class="logo d-flex align-items-center">
           <img
-            src="static/assets/img/cfrost-logo.png"
+            src="/static/assets/img/cfrost-logo.png"
             alt=""
             style="border-radius: 50%"
           />
@@ -122,7 +122,7 @@
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Society</a></li>
-            <li class="breadcrumb-item active">1234</li>
+            <li class="breadcrumb-item active">{{society_id}}</li>
           </ol>
         </nav>
       </div>
@@ -197,7 +197,9 @@
                       }
 
                       function updatePHChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
+                        console.log("updatePHChartWeekData")
+                        console.log("societyId", societyId);
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -231,9 +233,11 @@
                       }
 
                       function updatePHChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
+                        console.log("updatePHMonthData")
+                        console.log("societyId", societyId);
                         fetch(
                           `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
@@ -266,7 +270,7 @@
                       }
 
                       function updatePHChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -303,13 +307,13 @@
                       dayPh.addEventListener("click", updatePHChartDayData);
 
                       var weekPh = document.getElementById("phWeek");
-                      weekPh.addEventListener("click", () => updatePHChartWeekData("23658192", "phvalue"));
+                      weekPh.addEventListener("click", () => updatePHChartWeekData("{{society_id}}", "phvalue"));
 
                       var monthPh = document.getElementById("phMonth");
-                      monthPh.addEventListener("click",() => updatePHChartMonthData("23658192", 2023, "9", "phvalue"));
+                      monthPh.addEventListener("click",() => updatePHChartMonthData("{{society_id}}", 2023, "9", "phvalue"));
 
                       var yearPh = document.getElementById("phYear");
-                      yearPh.addEventListener("click", () => updatePHChartYearData("23658192", 2023, "phvalue"));
+                      yearPh.addEventListener("click", () => updatePHChartYearData("{{society_id}}", 2023, "phvalue"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         phChart = new ApexCharts(
@@ -436,7 +440,7 @@
                         societyId,
                         valueType
                       ) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -469,7 +473,7 @@
                       }
 
                       function updateTurbidityChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -504,7 +508,7 @@
                       }
 
                       function updateTurbidityChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -547,7 +551,7 @@
                       var weekTurbidity =
                         document.getElementById("turbidityWeek");
                         weekTurbidity.addEventListener("click", () =>
-                        updateTurbidityChartWeekData("23658192", "turbidityvalue")
+                        updateTurbidityChartWeekData("{{society_id}}", "turbidityvalue")
                       );
                       
 
@@ -555,7 +559,7 @@
                         document.getElementById("turbidityMonth");
                       monthTurbidity.addEventListener(
                         "click",
-                        () =>  updateTurbidityChartMonthData("23658192",2023,9,"turbidityvalue")
+                        () =>  updateTurbidityChartMonthData("{{society_id}}",2023,9,"turbidityvalue")
                       );
 
 
@@ -563,7 +567,7 @@
                         document.getElementById("turbidityYear");
                       yearTurbidity.addEventListener(
                         "click",
-                        () => updateTurbidityChartYearData("23658192", 2023, "turbidityvalue")
+                        () => updateTurbidityChartYearData("{{society_id}}", 2023, "turbidityvalue")
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -690,7 +694,7 @@
                         societyId,
                         valueType
                       ) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -723,7 +727,7 @@
                       }
 
                       function updateTemperatureChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -758,7 +762,7 @@
                       }
 
                       function updateTemperatureChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -803,7 +807,7 @@
                         document.getElementById("temperatureWeek");
                       weekTemperature.addEventListener("click", () =>
                         updateTemperatureChartWeekData(
-                          "23658192",
+                          "{{society_id}}",
                           "temperature"
                         )
                       );
@@ -812,14 +816,14 @@
                         document.getElementById("temperatureMonth");
                       monthTemperature.addEventListener(
                         "click",
-                        () => updateTemperatureChartMonthData("23658192", 2023, "9", "temperature")
+                        () => updateTemperatureChartMonthData("{{society_id}}", 2023, "9", "temperature")
                       );
 
                       var yearTemperature =
                         document.getElementById("temperatureYear");
                       yearTemperature.addEventListener(
                         "click",
-                        () => updateTemperatureChartYearData("23658192", 2023, "temperature")
+                        () => updateTemperatureChartYearData("{{society_id}}", 2023, "temperature")
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -944,7 +948,7 @@
                       }
 
                       function updateEcChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -977,7 +981,7 @@
                       }
 
                       function updateEcChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1012,7 +1016,7 @@
                       }
 
                       function updateEcChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -1050,14 +1054,14 @@
 
                       var weekEc = document.getElementById("ecWeek");
                       weekEc.addEventListener("click", () =>
-                        updateEcChartWeekData("23658192", "ecvalue")
+                        updateEcChartWeekData("{{society_id}}", "ecvalue")
                       );
 
                       var monthEc = document.getElementById("ecMonth");
-                      monthEc.addEventListener("click", () => updateEcChartMonthData("23658192", 2023, "9", "ecvalue"));
+                      monthEc.addEventListener("click", () => updateEcChartMonthData("{{society_id}}", 2023, "9", "ecvalue"));
 
                       var yearEc = document.getElementById("ecYear");
-                      yearEc.addEventListener("click", () => updateEcChartYearData("23658192", 2023, "ecvalue"));
+                      yearEc.addEventListener("click", () => updateEcChartYearData("{{society_id}}", 2023, "ecvalue"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         ecChart = new ApexCharts(
@@ -1182,7 +1186,7 @@
                       }
 
                       function updateFlowChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -1215,7 +1219,7 @@
                       }
 
                       function updateFlowChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1250,7 +1254,7 @@
                       }
 
                       function updateFlowChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -1288,14 +1292,14 @@
 
                       var weekFlow = document.getElementById("flowWeek");
                       weekFlow.addEventListener("click", () =>
-                        updateFlowChartWeekData("23658192", "flowrate")
+                        updateFlowChartWeekData("{{society_id}}", "flowrate")
                       );
 
                       var monthFlow = document.getElementById("flowMonth");
-                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("23658192", 2023, "9", "flowrate"));
+                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("{{society_id}}", 2023, "9", "flowrate"));
 
                       var yearFlow = document.getElementById("flowYear");
-                      yearFlow.addEventListener("click", () => updateFlowChartYearData("23658192", 2023, "flowrate"));
+                      yearFlow.addEventListener("click", () => updateFlowChartYearData("{{society_id}}", 2023, "flowrate"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         flowChart = new ApexCharts(
@@ -1412,7 +1416,7 @@
                       }
               
                       function updateTDSChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
@@ -1445,7 +1449,7 @@
                       }
               
                       function updateTDSChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1480,7 +1484,7 @@
                       }
               
                       function updateTDSChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "23658192";
+                        societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -1518,17 +1522,17 @@
               
                       var tdsWeek = document.getElementById("tdsWeek");
                       tdsWeek.addEventListener("click", () =>
-                        updateTDSChartWeekData("23658192", "tdsvalue")
+                        updateTDSChartWeekData("{{society_id}}", "tdsvalue")
                       );
               
                       var tdsMonth = document.getElementById("tdsMonth");
                       tdsMonth.addEventListener("click", () =>
-                        updateTDSChartMonthData("23658192", 2023, "9", "tdsvalue")
+                        updateTDSChartMonthData("{{society_id}}", 2023, "9", "tdsvalue")
                       );
               
                       var tdsYear = document.getElementById("tdsYear");
                       tdsYear.addEventListener("click", () =>
-                        updateTDSChartYearData("23658192", 2023, "tdsvalue")
+                        updateTDSChartYearData("{{society_id}}", 2023, "tdsvalue")
                       );
               
                       document.addEventListener("DOMContentLoaded", () => {
@@ -1898,16 +1902,16 @@
     <!-- End #main -->
 
     <!-- Vendor JS Files -->
-    <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="static/assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="static/assets/vendor/echarts/echarts.min.js"></script>
-    <script src="static/assets/vendor/quill/quill.min.js"></script>
-    <script src="static/assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="static/assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="static/assets/vendor/php-email-form/validate.js"></script>
+    <script src="/static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="/static/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="/static/assets/vendor/quill/quill.min.js"></script>
+    <script src="/static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/static/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/static/assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="static/assets/js/main.js"></script>
+    <script src="/static/assets/js/main.js"></script>
   </body>
 </html>
