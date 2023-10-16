@@ -186,7 +186,7 @@ def societyAll():
 #     return jsonify(averages)
 
 # Get district month data
-@app.route('/api/month/<district>/<year>/<month>/<value_type>')
+@app.route('/api/month/district/<district>/<year>/<month>/<value_type>')
 def calculate_average_district_weekly_data(district, year, month, value_type):
     year = int(year)
     month = int(month)
@@ -267,7 +267,7 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
     data = []
     for doc in documents:
         data.append(doc.to_dict())
-    
+    print(data)
     weekly_data = {}
     start_date = datetime(year, month, 1)
     if month == 12:
@@ -286,7 +286,6 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
                 weekly_data[week_number] = []
             
             weekly_data[week_number].append(entry)
-
     averages = {}
     keys_to_average = [value_type]  # Use the specified value_type
     week_labels = []  # Store week labels
@@ -309,8 +308,8 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
         week_labels.append(f'wk{key}')  # Create week labels
         
     # Check if averages is empty, and return the empty response if there's no data
-    if not averages:
-        return jsonify({'weeks': [], 'values': []})
+    # if not averages:
+    #     return jsonify({'weeks': [], 'values': []})
 
     # Sort week labels and values based on week numbers
     sorted_weeks_and_values = sorted(zip(week_labels, [entry[value_type] for entry in averages.values()]), key=lambda x: int(x[0][2:]))
