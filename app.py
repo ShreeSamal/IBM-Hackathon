@@ -237,7 +237,7 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
         key_averages["timestamp"] = values[0]["timestamp"]
         averages[key] = key_averages
         week_labels.append(f'wk{key}')  # Create week labels
-
+    print(averages)
     # Sort week labels and values based on week numbers
     sorted_weeks_and_values = sorted(zip(week_labels, [entry[value_type] for entry in averages.values()]), key=lambda x: int(x[0][2:]))
     sorted_week_labels, sorted_values = zip(*sorted_weeks_and_values)
