@@ -197,12 +197,18 @@
                       }
 
                       function updatePHChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
+                            console.log(data);
+                            if(data.phvalue.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -218,13 +224,14 @@
                                 },
                               })
                               .catch((error) => {
+                                console.log('fncmdnaskc');
                                 console.error("Error:", error);
                               });
                           });
                       }
 
                       function updatePHChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -233,6 +240,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -254,7 +266,7 @@
                       }
 
                       function updatePHChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -262,6 +274,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -286,13 +303,13 @@
                       dayPh.addEventListener("click", updatePHChartDayData);
 
                       var weekPh = document.getElementById("phWeek");
-                      weekPh.addEventListener("click", () => updatePHChartWeekData("21827553", "phvalue"));
+                      weekPh.addEventListener("click", () => updatePHChartWeekData("23658192", "phvalue"));
 
                       var monthPh = document.getElementById("phMonth");
-                      monthPh.addEventListener("click",() => updatePHChartMonthData("21827553", 2023, "9", "phvalue"));
+                      monthPh.addEventListener("click",() => updatePHChartMonthData("23658192", 2023, "9", "phvalue"));
 
                       var yearPh = document.getElementById("phYear");
-                      yearPh.addEventListener("click", () => updatePHChartYearData("21827553", 2023, "phvalue"));
+                      yearPh.addEventListener("click", () => updatePHChartYearData("23658192", 2023, "phvalue"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         phChart = new ApexCharts(
@@ -419,13 +436,18 @@
                         societyId,
                         valueType
                       ) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.turbidityvalue.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
@@ -447,7 +469,7 @@
                       }
 
                       function updateTurbidityChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -456,6 +478,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
@@ -477,7 +504,7 @@
                       }
 
                       function updateTurbidityChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -485,6 +512,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
@@ -515,7 +547,7 @@
                       var weekTurbidity =
                         document.getElementById("turbidityWeek");
                         weekTurbidity.addEventListener("click", () =>
-                        updateTurbidityChartWeekData("21827553", "turbidityvalue")
+                        updateTurbidityChartWeekData("23658192", "turbidityvalue")
                       );
                       
 
@@ -523,7 +555,7 @@
                         document.getElementById("turbidityMonth");
                       monthTurbidity.addEventListener(
                         "click",
-                        () =>  updateTurbidityChartMonthData("21827553",2023,9,"turbidityvalue")
+                        () =>  updateTurbidityChartMonthData("23658192",2023,9,"turbidityvalue")
                       );
 
 
@@ -531,7 +563,7 @@
                         document.getElementById("turbidityYear");
                       yearTurbidity.addEventListener(
                         "click",
-                        () => updateTurbidityChartYearData("21827553", 2023, "turbidityvalue")
+                        () => updateTurbidityChartYearData("23658192", 2023, "turbidityvalue")
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -658,13 +690,18 @@
                         societyId,
                         valueType
                       ) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.temperature.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -686,7 +723,7 @@
                       }
 
                       function updateTemperatureChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -695,6 +732,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -716,7 +758,7 @@
                       }
 
                       function updateTemperatureChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -724,6 +766,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -756,7 +803,7 @@
                         document.getElementById("temperatureWeek");
                       weekTemperature.addEventListener("click", () =>
                         updateTemperatureChartWeekData(
-                          "21827553",
+                          "23658192",
                           "temperature"
                         )
                       );
@@ -765,14 +812,14 @@
                         document.getElementById("temperatureMonth");
                       monthTemperature.addEventListener(
                         "click",
-                        () => updateTemperatureChartMonthData("21827553", 2023, "9", "temperature")
+                        () => updateTemperatureChartMonthData("23658192", 2023, "9", "temperature")
                       );
 
                       var yearTemperature =
                         document.getElementById("temperatureYear");
                       yearTemperature.addEventListener(
                         "click",
-                        () => updateTemperatureChartYearData("21827553", 2023, "temperature")
+                        () => updateTemperatureChartYearData("23658192", 2023, "temperature")
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -897,13 +944,18 @@
                       }
 
                       function updateEcChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.ecvalue.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -925,7 +977,7 @@
                       }
 
                       function updateEcChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -934,6 +986,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -955,7 +1012,7 @@
                       }
 
                       function updateEcChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -963,6 +1020,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -988,14 +1050,14 @@
 
                       var weekEc = document.getElementById("ecWeek");
                       weekEc.addEventListener("click", () =>
-                        updateEcChartWeekData("21827553", "ecvalue")
+                        updateEcChartWeekData("23658192", "ecvalue")
                       );
 
                       var monthEc = document.getElementById("ecMonth");
-                      monthEc.addEventListener("click", () => updateEcChartMonthData("21827553", 2023, "9", "ecvalue"));
+                      monthEc.addEventListener("click", () => updateEcChartMonthData("23658192", 2023, "9", "ecvalue"));
 
                       var yearEc = document.getElementById("ecYear");
-                      yearEc.addEventListener("click", () => updateEcChartYearData("21827553", 2023, "ecvalue"));
+                      yearEc.addEventListener("click", () => updateEcChartYearData("23658192", 2023, "ecvalue"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         ecChart = new ApexCharts(
@@ -1120,13 +1182,18 @@
                       }
 
                       function updateFlowChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.flowrate.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1148,7 +1215,7 @@
                       }
 
                       function updateFlowChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1157,6 +1224,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1178,7 +1250,7 @@
                       }
 
                       function updateFlowChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -1186,6 +1258,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1211,14 +1288,14 @@
 
                       var weekFlow = document.getElementById("flowWeek");
                       weekFlow.addEventListener("click", () =>
-                        updateFlowChartWeekData("21827553", "flowrate")
+                        updateFlowChartWeekData("23658192", "flowrate")
                       );
 
                       var monthFlow = document.getElementById("flowMonth");
-                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("21827553", 2023, "9", "flowrate"));
+                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("23658192", 2023, "9", "flowrate"));
 
                       var yearFlow = document.getElementById("flowYear");
-                      yearFlow.addEventListener("click", () => updateFlowChartYearData("21827553", 2023, "flowrate"));
+                      yearFlow.addEventListener("click", () => updateFlowChartYearData("23658192", 2023, "flowrate"));
 
                       document.addEventListener("DOMContentLoaded", () => {
                         flowChart = new ApexCharts(
@@ -1335,12 +1412,17 @@
                       }
               
                       function updateTDSChartWeekData(societyId, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
+                            if(data.tdsvalue.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             console.log(data);
                             // Update the chart's data
                             tdsChart.updateSeries([
@@ -1363,7 +1445,7 @@
                       }
               
                       function updateTDSChartMonthData(societyId, year, month, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1372,6 +1454,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
@@ -1393,7 +1480,7 @@
                       }
               
                       function updateTDSChartYearData(societyId, year, valueType) {
-                        societyId = societyId ? societyId : "21827553";
+                        societyId = societyId ? societyId : "23658192";
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
@@ -1401,6 +1488,11 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
@@ -1426,17 +1518,17 @@
               
                       var tdsWeek = document.getElementById("tdsWeek");
                       tdsWeek.addEventListener("click", () =>
-                        updateTDSChartWeekData("21827553", "tdsvalue")
+                        updateTDSChartWeekData("23658192", "tdsvalue")
                       );
               
                       var tdsMonth = document.getElementById("tdsMonth");
                       tdsMonth.addEventListener("click", () =>
-                        updateTDSChartMonthData("21827553", 2023, "9", "tdsvalue")
+                        updateTDSChartMonthData("23658192", 2023, "9", "tdsvalue")
                       );
               
                       var tdsYear = document.getElementById("tdsYear");
                       tdsYear.addEventListener("click", () =>
-                        updateTDSChartYearData("21827553", 2023, "tdsvalue")
+                        updateTDSChartYearData("23658192", 2023, "tdsvalue")
                       );
               
                       document.addEventListener("DOMContentLoaded", () => {
