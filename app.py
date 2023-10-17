@@ -21,10 +21,41 @@ def login_required(func):
         return func(*args, **kwargs)
     return decorated_view
 
+def time_difference(timestamp):
+    # Convert the timestamp to a datetime object
+    timestamp_datetime = datetime.fromtimestamp(timestamp)
+
+    # Get the current time as a datetime object
+    current_time = datetime.now()
+
+    # Calculate the time difference
+    time_delta = current_time - timestamp_datetime
+
+    # Calculate the time difference in minutes
+    minutes_difference = time_delta.total_seconds() / 60
+
+    if minutes_difference < 60:
+        return f"{int(minutes_difference)} min"
+    elif minutes_difference < 1440:  # Less than 24 hours
+        return f"{int(minutes_difference / 60)} hours"
+    elif minutes_difference < 10080:  # Less than 7 days (1 week)
+        return f"{int(minutes_difference / 1440)} days"
+    elif minutes_difference < 43800:  # Less than 30 days (1 month)
+        return f"{int(minutes_difference / 10080)} weeks"
+    else:
+        return f"{int(minutes_difference / 43800)} months"
+
 @app.route('/society/<society_id>')
 @login_required
-def index(society_id):
-    return render_template('index.html',title='Home',society_id=society_id)
+def society_homepage(society_id):
+    complaints_ref = db.collection('complaints')
+    documents = complaints_ref.stream()
+    complaints = []
+    for doc in documents:
+        curr = doc.to_dict()
+        diff = time_difference(curr['timestamp'])
+        complaints.append({'complaint':curr['complaint'],'diff':diff})
+    return render_template('index.html',title='Home',society_id=society_id,complaints=complaints[-5:])
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -47,8 +78,16 @@ def login():
 
 @app.route('/complaints')
 def complaints():
-    
-    return render_template('complaints.html')
+    complaints_ref = db.collection('complaints')
+    documents = complaints_ref.stream()
+    complaints = []
+    for doc in documents:
+        curr = doc.to_dict()
+        date = datetime.fromtimestamp(curr['timestamp'])
+        formatted_date = date.strftime("%d-%m-%Y")
+        curr['date'] = formatted_date
+        complaints.append(curr)
+    return render_template('complaints.html',complaints=complaints)
 
 @app.route('/logcomplaint',methods=['GET','POST'])
 def logcomplaint():
@@ -267,7 +306,6 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
     data = []
     for doc in documents:
         data.append(doc.to_dict())
-    print(data)
     weekly_data = {}
     start_date = datetime(year, month, 1)
     if month == 12:

@@ -138,7 +138,8 @@
                 <table class="table datatable">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">Society Id</th>
+                      <th scope="col">Email</th>
                       <th scope="col">Name</th>
                       <th scope="col">Complaint</th>
                       <th scope="col">Status</th>
@@ -146,14 +147,16 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% for complaint in complaints %}
                     <tr>
-                      <th scope="row">1</th>
-                      <td>Om Prakash Mishra</td>
-                      <td>Water incoming</td>
+                      <th scope="row">{{complaint.society_id}}</th>
+                      <td>{{complaint.email}}</td>
+                      <td>{{complaint.name}}</td>
+                      <td>{{complaint.complaint}}</td>
                       <td>
                         <div class="filter">
                           <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Accepted</a
+                            >{{complaint.status}}</a
                           >
                           <ul
                             class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
@@ -170,242 +173,9 @@
                           </ul>
                         </div>
                       </td>
-                      <td>2023-10-10</td>
+                      <td>{{complaint.date}}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Roger Sharma</td>
-                      <td>Water coming properly</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Pending</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-10</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Vikrant Dhawan</td>
-                      <td>Water quality bad</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Accepted</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-10</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Jason Dundren</td>
-                      <td>Give me water</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Rejected</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-10</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Michael Scott</td>
-                      <td>Give me water again</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Rejected</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-10</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Pam Beesly</td>
-                      <td>Low water pressure</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Pending</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-09</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">7</th>
-                      <td>Jim Halpert</td>
-                      <td>No hot water</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Rejected</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-08</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">8</th>
-                      <td>Dwight Schrute</td>
-                      <td>Water smells bad</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Pending</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-07</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">9</th>
-                      <td>Angela Martin</td>
-                      <td>Leaking faucet</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Accepted</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-06</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">10</th>
-                      <td>Kelly Kapoor</td>
-                      <td>Water color issue</td>
-                      <td>
-                        <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >Pending</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                      <td>2023-10-05</td>
-                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
