@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{{title}}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="/static/assets/img/favicon.png" rel="icon" />
+    <link
+      href="/static/assets/img/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="/static/assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <i class="bi bi-list toggle-sidebar-btn m-4"></i>
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img
+            src="/static/assets/img/cfrost-logo.png"
+            alt=""
+            style="border-radius: 50%"
+          />
+          <span class="d-none d-lg-block">AdminPanel</span>
+        </a>
+      </div>
+      <!-- End Logo -->
+
+      <div class="search-bar" style="margin-left: auto">
+        <form
+          class="search-form d-flex align-items-center"
+          method="POST"
+          action="#"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search"
+            title="Enter search keyword"
+          />
+          <button type="submit" title="Search">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+      <!-- End Search Bar -->
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/complaints">
+            <i class="bi bi-grid"></i>
+            <span>Complaints</span>
+          </a>
+        </li>
+        <!-- End Dashboard Nav -->
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main" style="margin-left: 600px;">
+    <!-- Floating Labels Form -->
+    <form class="row g-3" id="societyForm">
+        <div style="display:flex; align-items: center;">
+        <div class="col-md-8">
+          <div class="form-floating">
+            <input type="text" name="id" class="form-control" id="floatingName" placeholder="Your Name" style="height: 65px;">
+            <label for="floatingName">Enter Society ID</label>
+          </div>
+        </div>
+        <div class="text-center" style="margin-left: 1em;">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </div>
+    </form><!-- End floating Labels Form --> 
+    
+    <hr style="margin-top: 2em; margin-bottom: 2em; width: 74%">
+
+    <form class="row g-3" id="districtForm">
+        <div style="display:flex; align-items: center;">
+        <div class="col-md-8">
+            <div class="form-floating">
+                <select name="district" class="form-select" id="floatingSelect" aria-label="State" style="height: 65px;">
+                <option selected>Select</option>
+                {% for district in districts %}
+                <option value="{{district}}">{{district}}</option>
+                {% endfor %}
+                <!-- <option value="Thane">Thane</option> -->
+                </select>
+                <label for="floatingSelect">District</label>
+            </div>
+        </div>
+        <div class="text-center" style="margin-left: 1em;">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </div>
+    </form><!-- End floating Labels Form --> 
+
+    <hr style="margin-top: 2em; margin-bottom: 2em; width: 74%">
+
+    <form class="row g-3" id="localityForm">
+        <div style="display:flex; align-items: center;">
+        <div class="col-md-8">
+            <div class="form-floating">
+                <select name="locality" class="form-select" id="floatingSelect" aria-label="State" style="height: 65px;">
+                <option selected>Select</option>
+                {% for locality in localities %}
+                <option value="{{locality}}">{{locality}}</option>
+                {% endfor %}
+                </select>
+                <label for="floatingSelect">Locality</label>
+            </div>
+        </div>
+        <div class="text-center" style="margin-left: 1em;">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </div>
+    </form><!-- End floating Labels Form --> 
+
+    </main>
+    <!-- End #main -->
+
+    <!-- Vendor JS Files -->
+    <script src="/static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="/static/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="/static/assets/vendor/quill/quill.min.js"></script>
+    <script src="/static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/static/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/static/assets/js/main.js"></script>
+    <script>
+      const societyForm = document.getElementById("societyForm");
+      societyForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(societyForm);
+        const id = formData.get("id");
+        window.location.href = `/society/${id}`;
+      });
+
+      const districtForm = document.getElementById("districtForm");
+      districtForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(districtForm);
+        const district = formData.get("district");
+        window.location.href = `/district/${district}`;
+      });
+
+      const localityForm = document.getElementById("localityForm");
+      localityForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(localityForm);
+        const locality = formData.get("locality");
+        window.location.href = `/locality/${locality}`;
+      });
+    </script>
+  </body>
+</html>

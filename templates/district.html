@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{{title}}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="/static/assets/img/favicon.png" rel="icon" />
+    <link
+      href="/static/assets/img/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="/static/assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/assets/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Society</a></li>
+            <li class="breadcrumb-item active">{{district}}</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section dashboard">
+        <div class="row">
+          <!-- Left side columns -->
+          <div class="col-lg-8">
+            <div class="row">
+              <!-- Sales Card -->
+              <!-- End Sales Card -->
+
+              <!-- Revenue Card -->
+              <!-- End Revenue Card -->
+
+              <!-- Customers Card -->
+              <!-- End Customers Card -->
+
+              <!-- Reports -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="phMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="phYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">PH <span>/This Month</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="phChart"></div>
+
+                    <script>
+                      var phChart = null;
+
+
+                      function updatePHChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        console.log("updatePHMonthData")
+                        console.log("district", district);
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            phChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            phChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updatePHChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            phChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            phChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      var monthPh = document.getElementById("phMonth");
+                      monthPh.addEventListener("click",() => updatePHChartMonthData("{{district}}", 2023, "9", "phvalue"));
+
+                      var yearPh = document.getElementById("phYear");
+                      yearPh.addEventListener("click", () => updatePHChartYearData("{{district}}", 2023, "phvalue"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "phvalue";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        phChart = new ApexCharts(
+                          document.querySelector("#phChart"),
+                          {
+                            series: [
+                              {
+                                name: "PH",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        phChart.render();
+                        console.log(phChart);
+                        });
+                      });
+                    </script>
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="turbidityYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Turbidity <span>/This Month</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="turbidityChart"></div>
+
+                    <script>
+                      var turbidityChart = null;
+
+                      function updateTurbidityChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            turbidityChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            turbidityChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTurbidityChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            turbidityChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            turbidityChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      
+
+                      var monthTurbidity =
+                        document.getElementById("turbidityMonth");
+                      monthTurbidity.addEventListener(
+                        "click",
+                        () =>  updateTurbidityChartMonthData("{{district}}",2023,9,"turbidityvalue")
+                      );
+
+
+                      var yearTurbidity =
+                        document.getElementById("turbidityYear");
+                      yearTurbidity.addEventListener(
+                        "click",
+                        () => updateTurbidityChartYearData("{{district}}", 2023, "turbidityvalue")
+                      );
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "turbidityvalue";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        turbidityChart = new ApexCharts(
+                          document.querySelector("#turbidityChart"),
+                          {
+                            series: [
+                              {
+                                name: "Turbidity",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        turbidityChart.render();
+                        console.log(turbidityChart);
+                      });
+                      });
+                    </script>
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="temperatureYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Temperature <span>/This Month</span></h5>
+
+                    <!-- Line Chart -->
+                    <div id="temperatureChart"></div>
+
+                    <script>
+                      var temperatureChart = null;
+
+
+                      function updateTemperatureChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            temperatureChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            temperatureChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateTemperatureChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            temperatureChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            temperatureChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+
+                      }
+
+
+                      var monthTemperature =
+                        document.getElementById("temperatureMonth");
+                      monthTemperature.addEventListener(
+                        "click",
+                        () => updateTemperatureChartMonthData("{{district}}", 2023, "9", "temperature")
+                      );
+
+                      var yearTemperature =
+                        document.getElementById("temperatureYear");
+                      yearTemperature.addEventListener(
+                        "click",
+                        () => updateTemperatureChartYearData("{{district}}", 2023, "temperature")
+                      );
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "temperature";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        temperatureChart = new ApexCharts(
+                          document.querySelector("#temperatureChart"),
+                          {
+                            series: [
+                              {
+                                name: "Temperature",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        temperatureChart.render();
+                        console.log(temperatureChart);
+                      })
+                        });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="ecYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Electrical Conductivity <span>/This Month</span>
+                    </h5>
+
+                    <!-- Line Chart -->
+                    <div id="ecChart"></div>
+
+                    <script>
+                      var ecChart = null;
+
+                      function updateEcChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            ecChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            ecChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateEcChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            ecChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            ecChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+
+                      var monthEc = document.getElementById("ecMonth");
+                      monthEc.addEventListener("click", () => updateEcChartMonthData("{{district}}", 2023, "9", "ecvalue"));
+
+                      var yearEc = document.getElementById("ecYear");
+                      yearEc.addEventListener("click", () => updateEcChartYearData("{{district}}", 2023, "ecvalue"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "ecvalue";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        ecChart = new ApexCharts(
+                          document.querySelector("#ecChart"),
+                          {
+                            series: [
+                              {
+                                name: "Electrical Conductivity",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        ecChart.render();
+                        console.log(ecChart);
+                      })
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowMonth"
+                          >This Month</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="flowYear"
+                          >This Year</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Flow Rate <span>/This Month</span>
+                    </h5>
+
+                    <!-- Line Chart -->
+                    <div id="flowChart"></div>
+
+                    <script>
+                      var flowChart = null;
+
+                      function updateFlowChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+                      function updateFlowChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            flowChart.updateSeries([
+                              {
+                                data: data.values,
+                              },
+                            ]);
+
+                            flowChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+
+
+                      var monthFlow = document.getElementById("flowMonth");
+                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("{{district}}", 2023, "9", "flowrate"));
+
+                      var yearFlow = document.getElementById("flowYear");
+                      yearFlow.addEventListener("click", () => updateFlowChartYearData("{{district}}", 2023, "flowrate"));
+
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "flowrate";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        flowChart = new ApexCharts(
+                          document.querySelector("#flowChart"),
+                          {
+                            series: [
+                              {
+                                name: " Flow Rate",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        flowChart.render();
+                        console.log(flowChart);
+                      })
+                      });
+                    </script>
+
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown">
+                      <i class="bi bi-three-dots"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsMonth">This Month</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" id="tdsYear">This Year</a>
+                      </li>
+                    </ul>
+                  </div>
+              
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      TDS Value <span>/ This Month</span>
+                    </h5>
+              
+                    <!-- Line Chart -->
+                    <div id="tdsChart"></div>
+              
+                    <script>
+                      var tdsChart = null;
+              
+                      function updateTDSChartMonthData(district, year, month, valueType) {
+                        
+                        month = month ? month : "9";
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      function updateTDSChartYearData(district, year, valueType) {
+                        
+                        year = year ? year : "2023";
+                        fetch(
+                          `http://localhost:5000/api/year/district/${district}/${year}/${valueType}`
+                        )
+                          .then((response) => response.json())
+                          .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                              return;
+                            }
+                            // Update the chart's data
+                            tdsChart.updateSeries([
+                              {
+                                data: data.values, // Use the correct key for TDS data
+                              },
+                            ]);
+              
+                            tdsChart
+                              .updateOptions({
+                                xaxis: {
+                                  type: "number",
+                                  categories: data.months,
+                                },
+                              })
+                              .catch((error) => {
+                                console.error("Error:", error);
+                              });
+                          });
+                      }
+              
+                      var tdsMonth = document.getElementById("tdsMonth");
+                      tdsMonth.addEventListener("click", () =>
+                        updateTDSChartMonthData("{{district}}", 2023, "9", "tdsvalue")
+                      );
+              
+                      var tdsYear = document.getElementById("tdsYear");
+                      tdsYear.addEventListener("click", () =>
+                        updateTDSChartYearData("{{district}}", 2023, "tdsvalue")
+                      );
+              
+                      document.addEventListener("DOMContentLoaded", () => {
+                        district = "{{district}}";
+                        year = "2023";
+                        month = "9";
+                        valueType = "tdsvalue";
+                        fetch(
+                            `http://localhost:5000/api/month/district/${district}/${year}/${month}/${valueType}`
+                        )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            if(data.values.length == 0) {
+                              alert("No data found");
+                              console.log("No data found");
+                            }
+                        console.log(data);
+                        tdsChart = new ApexCharts(
+                          document.querySelector("#tdsChart"),
+                          {
+                            series: [
+                              {
+                                name: "Total Dissolved Solids",
+                                data: data.values,
+                              },
+                            ],
+                            chart: {
+                              height: 200,
+                              type: "area",
+                              toolbar: {
+                                show: true,
+                              },
+                            },
+                            markers: {
+                              size: 4,
+                            },
+                            colors: ["#4154f1"],
+                            fill: {
+                              type: "gradient",
+                              gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100],
+                              },
+                            },
+                            dataLabels: {
+                              enabled: false,
+                            },
+                            stroke: {
+                              curve: "smooth",
+                              width: 2,
+                            },
+                            xaxis: {
+                              type: "text",
+                              categories: data.weeks,
+                            },
+                          }
+                        );
+
+                        tdsChart.render();
+                        console.log(tdsChart);
+                      })
+                      });
+                    </script>
+              
+                    <!-- End Line Chart -->
+                  </div>
+                </div>
+              </div>              
+              
+              <!-- End Reports -->
+
+              <!-- Recent Sales -->
+              <!-- End Recent Sales -->
+
+              <!-- Top Selling -->
+              <!-- End Top Selling -->
+            </div>
+          </div>
+          <!-- End Left side columns -->
+
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- Vendor JS Files -->
+    <script src="/static/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="/static/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="/static/assets/vendor/quill/quill.min.js"></script>
+    <script src="/static/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/static/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/static/assets/js/main.js"></script>
+  </body>
+</html>
