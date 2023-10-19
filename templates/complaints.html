@@ -155,21 +155,33 @@
                       <td>{{complaint.complaint}}</td>
                       <td>
                         <div class="filter">
-                          <a class="icon" href="#" data-bs-toggle="dropdown"
-                            >{{complaint.status}}</a
-                          >
-                          <ul
-                            class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                          >
-                            <li class="dropdown-header text-start">
-                              <h6>Actions</h6>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Accept</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#">Reject</a>
-                            </li>
+                            {% if login_type == 1 %}
+                              {% if complaint.level == 'government' %}
+                                  Accepted
+                              {% elif complaint.status == 'pending' %}
+                                  <a href="#" class="icon" data-bs-toggle="dropdown">Pending</a>
+                              {% else %}
+                                  {{ complaint.status }}
+                              {% endif %}
+                            {% elif login_type == 0 %}
+                                {% if complaint.status == 'pending' %}
+                                  <a href="#" class="icon" data-bs-toggle="dropdown">Pending</a>
+                                  {% else %}
+                                  {{ complaint.status }} 
+                                {% endif %}
+                            {% endif %} 
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                              <li class="dropdown-header text-start">
+                                  <h6>Actions</h6>
+                              </li>
+                              {% if complaint.status == 'pending' %}
+                                  <li>
+                                      <a class="dropdown-item" href="#" onclick="accept_complaint(event, '{{ complaint.id }}')">Accept</a>
+                                  </li>
+                                  <li>
+                                      <a class="dropdown-item" href="#" onclick="reject_complaint(event, '{{ complaint.id }}')">Reject</a>
+                                  </li>
+                              {% endif %}
                           </ul>
                         </div>
                       </td>
@@ -185,6 +197,22 @@
         </div>
       </section>
     </main>
+
+    <script>
+      const accept_complaint = (event, complaint_id) => {
+        //event.preventDefault();
+        fetch(`http://localhost:5000/acceptcomplaint/${complaint_id}`).then(
+          () => location.reload()
+        )
+      }
+
+      const reject_complaint = (event, complaint_id) => {
+        // event.preventDefault();
+        fetch(`http://localhost:5000/rejectcomplaint/${complaint_id}`).then(
+          () => location.reload()
+        )
+      }
+    </script>
 
     <!-- Vendor JS Files -->
     <script src="static/assets/vendor/apexcharts/apexcharts.min.js"></script>
