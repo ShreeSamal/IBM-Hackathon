@@ -1,4 +1,4 @@
 Flask
 firebase_admin
 Flask-CORS
-waitress
+gunicorn
