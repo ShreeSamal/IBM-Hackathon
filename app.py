@@ -99,12 +99,13 @@ def time_difference(timestamp):
 @login_required
 def society_homepage(society_id):
     complaints_ref = database.collection('complaints')
-    documents = complaints_ref.where("society_id", "==", society_id).stream()
+    documents = complaints_ref.where("society_id", "==", int(society_id)).stream()
     complaints = []
     for doc in documents:
         curr = doc.to_dict()
         diff = time_difference(curr['timestamp'])
         complaints.append({'complaint': curr['complaint'], 'diff': diff})
+
     return render_template('index.html', title='Home', realtime_values=json.dumps(realTimeValues),society_id=society_id, complaints=complaints[-5:])
 
 

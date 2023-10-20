@@ -160,20 +160,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="phDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phYear"
                           >This Year</a
                         >
                       </li>
@@ -188,9 +202,11 @@
 
                     <script>
                       var phChart = null;
-                      const realtime_json = JSON.parse(`{{realtime_values | safe}}`);
-                      const phArray = realtime_json['ph_array'];
-                      const timestampArray = realtime_json['timestamps'];
+                      const realtime_json = JSON.parse(
+                        `{{realtime_values | safe}}`
+                      );
+                      const phArray = realtime_json["ph_array"];
+                      const timestampArray = realtime_json["timestamps"];
                       function updatePHChartDayData(societyId, valueType) {
                         var newData = phArray;
 
@@ -217,6 +233,20 @@
                               console.log("No data found");
                               return;
                             }
+
+                            const phTimestamps = data.timestamps.map(
+                              (timestamp) => {
+                                const date = new Date(timestamp);
+                                const day = String(date.getDate()).padStart(
+                                  2,
+                                  "0"
+                                ); // Ensure two digits for day
+                                const month = String(
+                                  date.getMonth() + 1
+                                ).padStart(2, "0"); // Month is 0-based
+                                return `${day}/${month}`;
+                              }
+                            );
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -228,7 +258,7 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: ["13/10","14/10","15/10","16/10","17/10","18/10","19/10"],
                                 },
                               })
                               .catch((error) => {
@@ -407,22 +437,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityDay"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityDay"
                           >Today</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityYear"
                           >This Year</a
                         >
                       </li>
@@ -438,7 +480,7 @@
                     <script>
                       var turbidityChart = null;
                       var phChart = null;
-                      const turbidityArray = realtime_json['turbidity_array'];
+                      const turbidityArray = realtime_json["turbidity_array"];
 
                       function updateTurbidityChartDayData() {
                         var newData = turbidityArray;
@@ -609,7 +651,7 @@
                             series: [
                               {
                                 name: "Turbudity",
-                                data: turbidityArray
+                                data: turbidityArray,
                               },
                             ],
                             chart: {
@@ -667,22 +709,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureDay"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureDay"
                           >Today</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureYear"
                           >This Year</a
                         >
                       </li>
@@ -697,7 +751,8 @@
 
                     <script>
                       var temperatureChart = null;
-                      const temperatureArray = realtime_json['temperature_array']
+                      const temperatureArray =
+                        realtime_json["temperature_array"];
 
                       function updateTemperatureChartDayData() {
                         var newData = temperatureArray;
@@ -902,7 +957,6 @@
                               type: "string",
                               categories: timestampArray,
                             },
-                            
                           }
                         );
 
@@ -928,20 +982,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="ecDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecYear"
                           >This Year</a
                         >
                       </li>
@@ -958,7 +1026,7 @@
 
                     <script>
                       var ecChart = null;
-                      const ecArray = realtime_json['ec_array'];
+                      const ecArray = realtime_json["ec_array"];
 
                       function updateEcChartDayData() {
                         var newData = ecArray;
@@ -1144,9 +1212,8 @@
                             },
                             xaxis: {
                               type: "string",
-                              categories: timestampArray
+                              categories: timestampArray,
                             },
-                            
                           }
                         );
 
@@ -1173,20 +1240,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="flowDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowYear"
                           >This Year</a
                         >
                       </li>
@@ -1201,7 +1282,7 @@
 
                     <script>
                       var flowChart = null;
-                      const flowArray = realtime_json['flow_array']
+                      const flowArray = realtime_json["flow_array"];
 
                       function updateFlowChartDayData() {
                         var newData = flowArray;
@@ -1393,7 +1474,6 @@
                               type: "string",
                               categories: timestampArray,
                             },
-                            
                           }
                         );
 
@@ -1420,20 +1500,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsYear"
                           >This Year</a
                         >
                       </li>
@@ -1448,10 +1542,9 @@
 
                     <script>
                       var tdsChart = null;
-                      const tdsArray = realtime_json['tds_array'];
+                      const tdsArray = realtime_json["tds_array"];
 
                       function updateTDSChartDayData() {
-
                         // Update the chart's data
                         tdsChart.updateSeries([
                           {
@@ -1639,7 +1732,6 @@
                               type: "string",
                               categories: timestampArray,
                             },
-                            
                           }
                         );
 
@@ -1740,7 +1832,13 @@
                                 name: "Max Value",
                               },
                               {
-                                value: [phArray[phArray.length - 1], turbidityArray[turbidityArray.length - 1], temperatureArray[temperatureArray.length - 1], ecArray[ecArray.length - 1], tdsArray[tdsArray.length - 1]],
+                                value: [
+                                  phArray[phArray.length - 1],
+                                  turbidityArray[turbidityArray.length - 1],
+                                  temperatureArray[temperatureArray.length - 1],
+                                  ecArray[ecArray.length - 1],
+                                  tdsArray[tdsArray.length - 1],
+                                ],
                                 name: "Actual Value",
                               },
                               {
@@ -1786,7 +1884,14 @@
                       turbidity: { min: 1, max: 5 },
                     };
 
-                    console.log("quality report", ph, temperature, tds, ec, turbidity);
+                    console.log(
+                      "quality report",
+                      ph,
+                      temperature,
+                      tds,
+                      ec,
+                      turbidity
+                    );
 
                     // Check how many parameters are within recommended limits
                     let count = 0;
@@ -1848,7 +1953,8 @@
                       temperatureArray[temperatureArray.length - 1],
                       tdsArray[tdsArray.length - 1],
                       ecArray[ecArray.length - 1],
-                      turbidityArray[turbidityArray.length - 1]);
+                      turbidityArray[turbidityArray.length - 1]
+                    );
                     console.log(rating);
 
                     // Update the pie chart
