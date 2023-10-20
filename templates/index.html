@@ -36,7 +36,10 @@
       rel="stylesheet"
     />
     <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
-    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/quill/quill.bubble.css"
+      rel="stylesheet"
+    />
     <link
       href="/static/assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
@@ -157,20 +160,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="phDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="phYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="phYear"
                           >This Year</a
                         >
                       </li>
@@ -185,8 +202,13 @@
 
                     <script>
                       var phChart = null;
+                      const realtime_json = JSON.parse(
+                        `{{realtime_values | safe}}`
+                      );
+                      const phArray = realtime_json["ph_array"];
+                      const timestampArray = realtime_json["timestamps"];
                       function updatePHChartDayData(societyId, valueType) {
-                        var newData = [74, 12, 10, 27, 53, 89];
+                        var newData = phArray;
 
                         // Update the chart's data
                         phChart.updateSeries([
@@ -198,7 +220,7 @@
 
                       function updatePHChartWeekData(societyId, valueType) {
                         societyId = societyId ? societyId : "{{society_id}}";
-                        console.log("updatePHChartWeekData")
+                        console.log("updatePHChartWeekData");
                         console.log("societyId", societyId);
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -206,11 +228,25 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.phvalue.length == 0) {
+                            if (data.phvalue.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+
+                            const phTimestamps = data.timestamps.map(
+                              (timestamp) => {
+                                const date = new Date(timestamp);
+                                const day = String(date.getDate()).padStart(
+                                  2,
+                                  "0"
+                                ); // Ensure two digits for day
+                                const month = String(
+                                  date.getMonth() + 1
+                                ).padStart(2, "0"); // Month is 0-based
+                                return `${day}/${month}`;
+                              }
+                            );
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -222,21 +258,26 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: ["13/10","14/10","15/10","16/10","17/10","18/10","19/10"],
                                 },
                               })
                               .catch((error) => {
-                                console.log('fncmdnaskc');
+                                console.log("fncmdnaskc");
                                 console.error("Error:", error);
                               });
                           });
                       }
 
-                      function updatePHChartMonthData(societyId, year, month, valueType) {
+                      function updatePHChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
-                        console.log("updatePHMonthData")
+                        console.log("updatePHMonthData");
                         console.log("societyId", societyId);
                         fetch(
                           `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
@@ -244,7 +285,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -269,7 +310,11 @@
                           });
                       }
 
-                      function updatePHChartYearData(societyId, year, valueType) {
+                      function updatePHChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -278,7 +323,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -307,13 +352,24 @@
                       dayPh.addEventListener("click", updatePHChartDayData);
 
                       var weekPh = document.getElementById("phWeek");
-                      weekPh.addEventListener("click", () => updatePHChartWeekData("{{society_id}}", "phvalue"));
+                      weekPh.addEventListener("click", () =>
+                        updatePHChartWeekData("{{society_id}}", "phvalue")
+                      );
 
                       var monthPh = document.getElementById("phMonth");
-                      monthPh.addEventListener("click",() => updatePHChartMonthData("{{society_id}}", 2023, "9", "phvalue"));
+                      monthPh.addEventListener("click", () =>
+                        updatePHChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          "9",
+                          "phvalue"
+                        )
+                      );
 
                       var yearPh = document.getElementById("phYear");
-                      yearPh.addEventListener("click", () => updatePHChartYearData("{{society_id}}", 2023, "phvalue"));
+                      yearPh.addEventListener("click", () =>
+                        updatePHChartYearData("{{society_id}}", 2023, "phvalue")
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         phChart = new ApexCharts(
@@ -322,7 +378,7 @@
                             series: [
                               {
                                 name: "PH",
-                                data: [31, 40, 28, 51, 42, 82, 56],
+                                data: phArray,
                               },
                             ],
                             chart: {
@@ -353,21 +409,8 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
@@ -394,22 +437,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityDay"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityDay"
                           >Today</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="turbidityYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="turbidityYear"
                           >This Year</a
                         >
                       </li>
@@ -424,9 +479,11 @@
 
                     <script>
                       var turbidityChart = null;
+                      var phChart = null;
+                      const turbidityArray = realtime_json["turbidity_array"];
 
                       function updateTurbidityChartDayData() {
-                        var newData = [101, 45, 98, 76];
+                        var newData = turbidityArray;
 
                         // Update the chart's data
                         turbidityChart.updateSeries([
@@ -447,7 +504,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.turbidityvalue.length == 0) {
+                            if (data.turbidityvalue.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -472,7 +529,12 @@
                           });
                       }
 
-                      function updateTurbidityChartMonthData(societyId, year, month, valueType) {
+                      function updateTurbidityChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -482,7 +544,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -507,7 +569,11 @@
                           });
                       }
 
-                      function updateTurbidityChartYearData(societyId, year, valueType) {
+                      function updateTurbidityChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -516,7 +582,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -550,24 +616,32 @@
 
                       var weekTurbidity =
                         document.getElementById("turbidityWeek");
-                        weekTurbidity.addEventListener("click", () =>
-                        updateTurbidityChartWeekData("{{society_id}}", "turbidityvalue")
+                      weekTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartWeekData(
+                          "{{society_id}}",
+                          "turbidityvalue"
+                        )
                       );
-                      
 
                       var monthTurbidity =
                         document.getElementById("turbidityMonth");
-                      monthTurbidity.addEventListener(
-                        "click",
-                        () =>  updateTurbidityChartMonthData("{{society_id}}",2023,9,"turbidityvalue")
+                      monthTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          9,
+                          "turbidityvalue"
+                        )
                       );
-
 
                       var yearTurbidity =
                         document.getElementById("turbidityYear");
-                      yearTurbidity.addEventListener(
-                        "click",
-                        () => updateTurbidityChartYearData("{{society_id}}", 2023, "turbidityvalue")
+                      yearTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartYearData(
+                          "{{society_id}}",
+                          2023,
+                          "turbidityvalue"
+                        )
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -577,7 +651,7 @@
                             series: [
                               {
                                 name: "Turbudity",
-                                data: [31, 40, 28, 51, 42, 82, 56],
+                                data: turbidityArray,
                               },
                             ],
                             chart: {
@@ -608,21 +682,8 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
@@ -648,22 +709,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureDay"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureDay"
                           >Today</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="temperatureYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="temperatureYear"
                           >This Year</a
                         >
                       </li>
@@ -678,9 +751,11 @@
 
                     <script>
                       var temperatureChart = null;
+                      const temperatureArray =
+                        realtime_json["temperature_array"];
 
                       function updateTemperatureChartDayData() {
-                        var newData = [74, 32, 101, 87, 23, 59];
+                        var newData = temperatureArray;
 
                         // Update the chart's data
                         temperatureChart.updateSeries([
@@ -701,7 +776,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.temperature.length == 0) {
+                            if (data.temperature.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -726,7 +801,12 @@
                           });
                       }
 
-                      function updateTemperatureChartMonthData(societyId, year, month, valueType) {
+                      function updateTemperatureChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -736,7 +816,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -761,7 +841,11 @@
                           });
                       }
 
-                      function updateTemperatureChartYearData(societyId, year, valueType) {
+                      function updateTemperatureChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -770,7 +854,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -793,7 +877,6 @@
                                 console.error("Error:", error);
                               });
                           });
-
                       }
 
                       var dayTemperature =
@@ -814,16 +897,23 @@
 
                       var monthTemperature =
                         document.getElementById("temperatureMonth");
-                      monthTemperature.addEventListener(
-                        "click",
-                        () => updateTemperatureChartMonthData("{{society_id}}", 2023, "9", "temperature")
+                      monthTemperature.addEventListener("click", () =>
+                        updateTemperatureChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          "9",
+                          "temperature"
+                        )
                       );
 
                       var yearTemperature =
                         document.getElementById("temperatureYear");
-                      yearTemperature.addEventListener(
-                        "click",
-                        () => updateTemperatureChartYearData("{{society_id}}", 2023, "temperature")
+                      yearTemperature.addEventListener("click", () =>
+                        updateTemperatureChartYearData(
+                          "{{society_id}}",
+                          2023,
+                          "temperature"
+                        )
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -833,7 +923,7 @@
                             series: [
                               {
                                 name: "Temperature",
-                                data: [31, 40, 28, 51, 42, 82, 56],
+                                data: temperatureArray,
                               },
                             ],
                             chart: {
@@ -864,21 +954,8 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
@@ -905,20 +982,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="ecDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="ecYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="ecYear"
                           >This Year</a
                         >
                       </li>
@@ -935,9 +1026,10 @@
 
                     <script>
                       var ecChart = null;
+                      const ecArray = realtime_json["ec_array"];
 
                       function updateEcChartDayData() {
-                        var newData = [56, 78, 62, 45];
+                        var newData = ecArray;
 
                         // Update the chart's data
                         ecChart.updateSeries([
@@ -955,7 +1047,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.ecvalue.length == 0) {
+                            if (data.ecvalue.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -980,7 +1072,12 @@
                           });
                       }
 
-                      function updateEcChartMonthData(societyId, year, month, valueType) {
+                      function updateEcChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -990,7 +1087,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1015,7 +1112,11 @@
                           });
                       }
 
-                      function updateEcChartYearData(societyId, year, valueType) {
+                      function updateEcChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1024,7 +1125,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1058,10 +1159,19 @@
                       );
 
                       var monthEc = document.getElementById("ecMonth");
-                      monthEc.addEventListener("click", () => updateEcChartMonthData("{{society_id}}", 2023, "9", "ecvalue"));
+                      monthEc.addEventListener("click", () =>
+                        updateEcChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          "9",
+                          "ecvalue"
+                        )
+                      );
 
                       var yearEc = document.getElementById("ecYear");
-                      yearEc.addEventListener("click", () => updateEcChartYearData("{{society_id}}", 2023, "ecvalue"));
+                      yearEc.addEventListener("click", () =>
+                        updateEcChartYearData("{{society_id}}", 2023, "ecvalue")
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         ecChart = new ApexCharts(
@@ -1070,7 +1180,7 @@
                             series: [
                               {
                                 name: "Electrical Conductivity",
-                                data: [58, 63, 55, 62, 57, 61, 59],
+                                data: ecArray,
                               },
                             ],
                             chart: {
@@ -1101,21 +1211,8 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
@@ -1143,20 +1240,34 @@
                       </li>
 
                       <li>
-                        <a class="dropdown-item" href="#" id="flowDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowWeek"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowWeek"
                           >Last 7 Days</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowMonth"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowMonth"
                           >This Month</a
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="flowYear"
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="flowYear"
                           >This Year</a
                         >
                       </li>
@@ -1164,18 +1275,17 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">
-                      Flow Rate <span>/Today</span>
-                    </h5>
+                    <h5 class="card-title">Flow Rate <span>/Today</span></h5>
 
                     <!-- Line Chart -->
                     <div id="flowChart"></div>
 
                     <script>
                       var flowChart = null;
+                      const flowArray = realtime_json["flow_array"];
 
                       function updateFlowChartDayData() {
-                        var newData = [56, 78, 62, 45];
+                        var newData = flowArray;
 
                         // Update the chart's data
                         flowChart.updateSeries([
@@ -1193,7 +1303,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.flowrate.length == 0) {
+                            if (data.flowrate.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1218,7 +1328,12 @@
                           });
                       }
 
-                      function updateFlowChartMonthData(societyId, year, month, valueType) {
+                      function updateFlowChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -1228,7 +1343,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1253,7 +1368,11 @@
                           });
                       }
 
-                      function updateFlowChartYearData(societyId, year, valueType) {
+                      function updateFlowChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1262,7 +1381,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1296,10 +1415,23 @@
                       );
 
                       var monthFlow = document.getElementById("flowMonth");
-                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("{{society_id}}", 2023, "9", "flowrate"));
+                      monthFlow.addEventListener("click", () =>
+                        updateFlowChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          "9",
+                          "flowrate"
+                        )
+                      );
 
                       var yearFlow = document.getElementById("flowYear");
-                      yearFlow.addEventListener("click", () => updateFlowChartYearData("{{society_id}}", 2023, "flowrate"));
+                      yearFlow.addEventListener("click", () =>
+                        updateFlowChartYearData(
+                          "{{society_id}}",
+                          2023,
+                          "flowrate"
+                        )
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         flowChart = new ApexCharts(
@@ -1308,7 +1440,7 @@
                             series: [
                               {
                                 name: "Flow Rate",
-                                data: [58, 63, 55, 62, 57, 61, 59],
+                                data: flowArray,
                               },
                             ],
                             chart: {
@@ -1339,21 +1471,8 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
@@ -1373,48 +1492,67 @@
                     <a class="icon" href="#" data-bs-toggle="dropdown">
                       <i class="bi bi-three-dots"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
                       <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                       </li>
-              
+
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsDay">Today</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsDay"
+                          >Today</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsWeek">Last 7 Days</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsWeek"
+                          >Last 7 Days</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsMonth">This Month</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsMonth"
+                          >This Month</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsYear">This Year</a>
+                        <a
+                          class="dropdown-item"
+                          style="cursor: pointer"
+                          id="tdsYear"
+                          >This Year</a
+                        >
                       </li>
                     </ul>
                   </div>
-              
+
                   <div class="card-body">
-                    <h5 class="card-title">
-                      TDS Value <span>/ Today</span>
-                    </h5>
-              
+                    <h5 class="card-title">TDS Value <span>/ Today</span></h5>
+
                     <!-- Line Chart -->
                     <div id="tdsChart"></div>
-              
+
                     <script>
                       var tdsChart = null;
-              
+                      const tdsArray = realtime_json["tds_array"];
+
                       function updateTDSChartDayData() {
-                        var newData = [56, 78, 62, 45]; // Sample data, replace with actual data
-              
                         // Update the chart's data
                         tdsChart.updateSeries([
                           {
-                            data: newData,
+                            data: tdsArray,
                           },
                         ]);
                       }
-              
+
                       function updateTDSChartWeekData(societyId, valueType) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
@@ -1422,7 +1560,7 @@
                         )
                           .then((response) => response.json())
                           .then((data) => {
-                            if(data.tdsvalue.length == 0) {
+                            if (data.tdsvalue.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1434,7 +1572,7 @@
                                 data: data.tdsvalue, // Use the correct key for TDS data
                               },
                             ]);
-              
+
                             tdsChart
                               .updateOptions({
                                 xaxis: {
@@ -1447,8 +1585,13 @@
                               });
                           });
                       }
-              
-                      function updateTDSChartMonthData(societyId, year, month, valueType) {
+
+                      function updateTDSChartMonthData(
+                        societyId,
+                        year,
+                        month,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -1458,7 +1601,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1469,7 +1612,7 @@
                                 data: data.values, // Use the correct key for TDS data
                               },
                             ]);
-              
+
                             tdsChart
                               .updateOptions({
                                 xaxis: {
@@ -1482,8 +1625,12 @@
                               });
                           });
                       }
-              
-                      function updateTDSChartYearData(societyId, year, valueType) {
+
+                      function updateTDSChartYearData(
+                        societyId,
+                        year,
+                        valueType
+                      ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1492,7 +1639,7 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
@@ -1503,7 +1650,7 @@
                                 data: data.values, // Use the correct key for TDS data
                               },
                             ]);
-              
+
                             tdsChart
                               .updateOptions({
                                 xaxis: {
@@ -1516,25 +1663,34 @@
                               });
                           });
                       }
-              
+
                       var tdsDay = document.getElementById("tdsDay");
                       tdsDay.addEventListener("click", updateTDSChartDayData);
-              
+
                       var tdsWeek = document.getElementById("tdsWeek");
                       tdsWeek.addEventListener("click", () =>
                         updateTDSChartWeekData("{{society_id}}", "tdsvalue")
                       );
-              
+
                       var tdsMonth = document.getElementById("tdsMonth");
                       tdsMonth.addEventListener("click", () =>
-                        updateTDSChartMonthData("{{society_id}}", 2023, "9", "tdsvalue")
+                        updateTDSChartMonthData(
+                          "{{society_id}}",
+                          2023,
+                          "9",
+                          "tdsvalue"
+                        )
                       );
-              
+
                       var tdsYear = document.getElementById("tdsYear");
                       tdsYear.addEventListener("click", () =>
-                        updateTDSChartYearData("{{society_id}}", 2023, "tdsvalue")
+                        updateTDSChartYearData(
+                          "{{society_id}}",
+                          2023,
+                          "tdsvalue"
+                        )
                       );
-              
+
                       document.addEventListener("DOMContentLoaded", () => {
                         tdsChart = new ApexCharts(
                           document.querySelector("#tdsChart"),
@@ -1542,7 +1698,7 @@
                             series: [
                               {
                                 name: "TDS Value",
-                                data: [58, 63, 55, 62, 57, 61, 59], // Sample data, replace with actual data
+                                data: tdsArray, // Sample data, replace with actual data
                               },
                             ],
                             chart: {
@@ -1573,34 +1729,21 @@
                               width: 2,
                             },
                             xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
+                              type: "string",
+                              categories: timestampArray,
                             },
                           }
                         );
-              
+
                         tdsChart.render();
                       });
                     </script>
-              
+
                     <!-- End Line Chart -->
                   </div>
                 </div>
-              </div>              
-              
+              </div>
+
               <!-- End Reports -->
 
               <!-- Recent Sales -->
@@ -1616,8 +1759,6 @@
           <div class="col-lg-4">
             <!-- Recent Activity -->
             <div class="card">
-             
-
               <div class="card-body">
                 <h5 class="card-title">Recent Complaints</h5>
 
@@ -1628,9 +1769,7 @@
                     <i
                       class="bi bi-circle-fill activity-badge text-success align-self-start"
                     ></i>
-                    <div class="activity-content">
-                      {{complaint.complaint}}
-                    </div>
+                    <div class="activity-content">{{complaint.complaint}}</div>
                   </div>
                   {% endfor %}
                   <!-- End activity item-->
@@ -1641,9 +1780,8 @@
 
             <!-- Budget Report -->
             <div class="card">
-
               <div class="card-body pb-0">
-                <h5 class="card-title">Quality Report </h5>
+                <h5 class="card-title">Quality Report</h5>
 
                 <div
                   id="budgetChart"
@@ -1657,34 +1795,30 @@
                       .init(document.querySelector("#budgetChart"))
                       .setOption({
                         legend: {
-                          data: ["Max Value", "Actual Value","Min Value"],
+                          data: ["Max Value", "Actual Value", "Min Value"],
                         },
                         radar: {
                           // shape: 'circle',
                           indicator: [
                             {
                               name: "PH",
-                              max: 6500,
+                              max: 8.5,
                             },
                             {
-                              name: "Turbudity",
-                              max: 6500,
+                              name: "Turb",
+                              max: 5,
                             },
                             {
                               name: "Temperature",
-                              max: 6500,
+                              max: 35,
                             },
                             {
-                              name: "Electrical Conductivity",
-                              max: 6500,
-                            },
-                            {
-                              name: "Flow Rate",
-                              max: 6500,
+                              name: "EC",
+                              max: 400,
                             },
                             {
                               name: "TDS",
-                              max: 6500,
+                              max: 300,
                             },
                           ],
                         },
@@ -1694,21 +1828,23 @@
                             type: "radar",
                             data: [
                               {
-                                value: [6000, 6000, 6000, 6000, 6000, 6000],
+                                value: [8.5, 5, 35, 400, 300],
                                 name: "Max Value",
                               },
                               {
                                 value: [
-                                  4000, 4000, 4000, 4000, 4000, 4000,
+                                  phArray[phArray.length - 1],
+                                  turbidityArray[turbidityArray.length - 1],
+                                  temperatureArray[temperatureArray.length - 1],
+                                  ecArray[ecArray.length - 1],
+                                  tdsArray[tdsArray.length - 1],
                                 ],
                                 name: "Actual Value",
                               },
                               {
-                                value: [
-                                  3000, 3000, 3000, 3000, 3000, 3000,
-                                ],
+                                value: [6.5, 1, 10, 50, 50],
                                 name: "Min Value",
-                              }
+                              },
                             ],
                           },
                         ],
@@ -1718,10 +1854,10 @@
               </div>
             </div>
             <!-- End Budget Report -->
+            <!-- Credit: Shree Samal, Kaushal Poojary, Shaun D'souza -->
 
             <!-- Website Traffic -->
             <div class="card">
-
               <div class="card-body pb-0">
                 <h5 class="card-title">Quality <span>| Current</span></h5>
 
@@ -1732,8 +1868,97 @@
                 ></div>
 
                 <script>
+                  function calculateRating(
+                    ph,
+                    temperature,
+                    tds,
+                    ec,
+                    turbidity
+                  ) {
+                    // Define the recommended limits for each parameter
+                    const recommendedLimits = {
+                      ph: { min: 6.5, max: 8.5 },
+                      temperature: { min: 10, max: 35 },
+                      tds: { min: 50, max: 300 },
+                      ec: { min: 50, max: 400 },
+                      turbidity: { min: 1, max: 5 },
+                    };
+
+                    console.log(
+                      "quality report",
+                      ph,
+                      temperature,
+                      tds,
+                      ec,
+                      turbidity
+                    );
+
+                    // Check how many parameters are within recommended limits
+                    let count = 0;
+                    // Check each parameter against its recommended limits
+                    if (
+                      ph >= recommendedLimits.ph.min &&
+                      ph <= recommendedLimits.ph.max
+                    ) {
+                      count++;
+                    }
+                    if (
+                      temperature >= recommendedLimits.temperature.min &&
+                      temperature <= recommendedLimits.temperature.max
+                    ) {
+                      count++;
+                    }
+                    if (
+                      tds >= recommendedLimits.tds.min &&
+                      tds <= recommendedLimits.tds.max
+                    ) {
+                      count++;
+                    }
+                    if (
+                      ec >= recommendedLimits.ec.min &&
+                      ec <= recommendedLimits.ec.max
+                    ) {
+                      count++;
+                    }
+                    if (
+                      turbidity >= recommendedLimits.turbidity.min &&
+                      turbidity <= recommendedLimits.turbidity.max
+                    ) {
+                      count++;
+                    }
+                    console.log("count", count);
+
+                    // Determine the rating based on the count
+                    let rating = "";
+                    if (count === 5) {
+                      rating = "Excellent";
+                    } else if (count === 4) {
+                      rating = "Good";
+                    } else if (count === 3) {
+                      rating = "Average";
+                    } else if (count === 2) {
+                      rating = "Poor";
+                    } else {
+                      rating = "Very Poor";
+                    }
+
+                    return rating;
+                  }
+
                   document.addEventListener("DOMContentLoaded", () => {
-                    echarts
+                    // Call the function with sample values
+
+                    const rating = calculateRating(
+                      phArray[phArray.length - 1],
+                      temperatureArray[temperatureArray.length - 1],
+                      tdsArray[tdsArray.length - 1],
+                      ecArray[ecArray.length - 1],
+                      turbidityArray[turbidityArray.length - 1]
+                    );
+                    console.log(rating);
+
+                    // Update the pie chart
+                    const chart = echarts
                       .init(document.querySelector("#trafficChart"))
                       .setOption({
                         tooltip: {
@@ -1765,29 +1990,31 @@
                             },
                             data: [
                               {
-                                value: 1048,
-                                name: "Good",
-                              },
-                              {
-                                value: 0,
+                                value: rating === "Excellent" ? 1048 : 0,
                                 name: "Excellent",
                               },
                               {
-                                value: 0,
+                                value: rating === "Good" ? 1048 : 0,
+                                name: "Good",
+                              },
+                              {
+                                value: rating === "Average" ? 1048 : 0,
                                 name: "Average",
                               },
                               {
-                                value: 0,
+                                value: rating === "Poor" ? 1048 : 0,
                                 name: "Poor",
                               },
                               {
-                                value: 0,
+                                value: rating === "Very Poor" ? 1048 : 0,
                                 name: "Very Poor",
                               },
                             ],
                           },
                         ],
                       });
+
+                    console.log(chart);
                   });
                 </script>
               </div>
