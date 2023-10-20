@@ -201,14 +201,14 @@
     <script>
       const accept_complaint = (event, complaint_id) => {
         //event.preventDefault();
-        fetch(`http://localhost:5000/acceptcomplaint/${complaint_id}`).then(
+        fetch(`https://hydroguard.onrender.com/acceptcomplaint/${complaint_id}`).then(
           () => location.reload()
         )
       }
 
       const reject_complaint = (event, complaint_id) => {
         // event.preventDefault();
-        fetch(`http://localhost:5000/rejectcomplaint/${complaint_id}`).then(
+        fetch(`https://hydroguard.onrender.com/rejectcomplaint/${complaint_id}`).then(
           () => location.reload()
         )
       }

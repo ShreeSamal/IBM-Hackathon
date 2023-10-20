@@ -223,7 +223,7 @@
                         console.log("updatePHChartWeekData");
                         console.log("societyId", societyId);
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -280,7 +280,7 @@
                         console.log("updatePHMonthData");
                         console.log("societyId", societyId);
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -318,7 +318,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -499,7 +499,7 @@
                       ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -539,7 +539,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -577,7 +577,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -771,7 +771,7 @@
                       ) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -811,7 +811,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -849,7 +849,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1042,7 +1042,7 @@
                       function updateEcChartWeekData(societyId, valueType) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1082,7 +1082,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1120,7 +1120,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1298,7 +1298,7 @@
                       function updateFlowChartWeekData(societyId, valueType) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1338,7 +1338,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1376,7 +1376,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1556,7 +1556,7 @@
                       function updateTDSChartWeekData(societyId, valueType) {
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
-                          `http://localhost:5000/api/society/week/${societyId}/${valueType}`
+                          `https://hydroguard.onrender.com/api/society/week/${societyId}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1596,7 +1596,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/${societyId}/${year}/${month}/${valueType}`
+                          `https://hydroguard.onrender.com/api/month/${societyId}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1634,7 +1634,7 @@
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/${societyId}/${year}/${valueType}`
+                          `https://hydroguard.onrender.com/api/year/${societyId}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
