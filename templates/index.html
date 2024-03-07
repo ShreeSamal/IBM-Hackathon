@@ -207,15 +207,49 @@
                       );
                       const phArray = realtime_json["ph_array"];
                       const timestampArray = realtime_json["timestamps"];
-                      function updatePHChartDayData(societyId, valueType) {
-                        var newData = phArray;
 
-                        // Update the chart's data
-                        phChart.updateSeries([
-                          {
-                            data: newData,
-                          },
-                        ]);
+                      // Check screen width and update x-axis categories and data array
+                      function updatePhChartDayData() {
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
+
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newPhArray = phArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          phChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          phChart.updateSeries([
+                            {
+                              data: newPhArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          phChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          phChart.updateSeries([
+                            {
+                              data: phArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updatePHChartWeekData(societyId, valueType) {
@@ -258,7 +292,15 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: ["13/10","14/10","15/10","16/10","17/10","18/10","19/10"],
+                                  categories: [
+                                    "13/10",
+                                    "14/10",
+                                    "15/10",
+                                    "16/10",
+                                    "17/10",
+                                    "18/10",
+                                    "19/10",
+                                  ],
                                 },
                               })
                               .catch((error) => {
@@ -349,7 +391,7 @@
                       }
 
                       var dayPh = document.getElementById("phDay");
-                      dayPh.addEventListener("click", updatePHChartDayData);
+                      dayPh.addEventListener("click", updatePhChartDayData);
 
                       var weekPh = document.getElementById("phWeek");
                       weekPh.addEventListener("click", () =>
@@ -417,6 +459,12 @@
 
                         phChart.render();
                         console.log(phChart);
+
+                        // Initial update based on screen width
+                        updatePhChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener("resize", updatePhChartDayData);
                       });
                     </script>
                     <!-- End Line Chart -->
@@ -482,15 +530,48 @@
                       var phChart = null;
                       const turbidityArray = realtime_json["turbidity_array"];
 
+                      // Check screen width and update x-axis categories and data array
                       function updateTurbidityChartDayData() {
-                        var newData = turbidityArray;
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
 
-                        // Update the chart's data
-                        turbidityChart.updateSeries([
-                          {
-                            data: newData,
-                          },
-                        ]);
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newTurbidityArray = turbidityArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          turbidityChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          turbidityChart.updateSeries([
+                            {
+                              data: newTurbidityArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          turbidityChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          turbidityChart.updateSeries([
+                            {
+                              data: turbidityArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updateTurbidityChartWeekData(
@@ -689,6 +770,15 @@
                         );
 
                         turbidityChart.render();
+
+                        // Initial update based on screen width
+                        updateTurbidityChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener(
+                          "resize",
+                          updateTurbidityChartDayData
+                        );
                       });
                     </script>
                     <!-- End Line Chart -->
@@ -754,15 +844,48 @@
                       const temperatureArray =
                         realtime_json["temperature_array"];
 
+                      // Check screen width and update x-axis categories and data array
                       function updateTemperatureChartDayData() {
-                        var newData = temperatureArray;
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
 
-                        // Update the chart's data
-                        temperatureChart.updateSeries([
-                          {
-                            data: newData,
-                          },
-                        ]);
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newTemperatureArray = temperatureArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          temperatureChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          temperatureChart.updateSeries([
+                            {
+                              data: newTemperatureArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          temperatureChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          temperatureChart.updateSeries([
+                            {
+                              data: temperatureArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updateTemperatureChartWeekData(
@@ -961,6 +1084,15 @@
                         );
 
                         temperatureChart.render();
+
+                        // Initial update based on screen width
+                        updateTemperatureChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener(
+                          "resize",
+                          updateTemperatureChartDayData
+                        );
                       });
                     </script>
 
@@ -1028,15 +1160,48 @@
                       var ecChart = null;
                       const ecArray = realtime_json["ec_array"];
 
+                      // Check screen width and update x-axis categories and data array
                       function updateEcChartDayData() {
-                        var newData = ecArray;
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
 
-                        // Update the chart's data
-                        ecChart.updateSeries([
-                          {
-                            data: newData,
-                          },
-                        ]);
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newEcArray = ecArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          ecChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          ecChart.updateSeries([
+                            {
+                              data: newEcArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          ecChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          ecChart.updateSeries([
+                            {
+                              data: ecArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updateEcChartWeekData(societyId, valueType) {
@@ -1218,6 +1383,12 @@
                         );
 
                         ecChart.render();
+
+                        // Initial update based on screen width
+                        updateEcChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener("resize", updateEcChartDayData);
                       });
                     </script>
 
@@ -1284,15 +1455,48 @@
                       var flowChart = null;
                       const flowArray = realtime_json["flow_array"];
 
+                      // Check screen width and update x-axis categories and data array
                       function updateFlowChartDayData() {
-                        var newData = flowArray;
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
 
-                        // Update the chart's data
-                        flowChart.updateSeries([
-                          {
-                            data: newData,
-                          },
-                        ]);
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newFlowArray = flowArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          flowChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          flowChart.updateSeries([
+                            {
+                              data: newFlowArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          flowChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          flowChart.updateSeries([
+                            {
+                              data: flowArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updateFlowChartWeekData(societyId, valueType) {
@@ -1478,6 +1682,15 @@
                         );
 
                         flowChart.render();
+
+                        // Initial update based on screen width
+                        updateFlowChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener(
+                          "resize",
+                          updateFlowChartDayData
+                        );
                       });
                     </script>
 
@@ -1544,13 +1757,48 @@
                       var tdsChart = null;
                       const tdsArray = realtime_json["tds_array"];
 
+                      // Check screen width and update x-axis categories and data array
                       function updateTDSChartDayData() {
-                        // Update the chart's data
-                        tdsChart.updateSeries([
-                          {
-                            data: tdsArray,
-                          },
-                        ]);
+                        const screenWidth =
+                          window.innerWidth ||
+                          document.documentElement.clientWidth ||
+                          document.body.clientWidth;
+
+                        if (screenWidth <= 450) {
+                          // Display only 6 values
+                          const interval = Math.ceil(timestampArray.length / 6);
+                          const newData = timestampArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+                          const newTdsArray = tdsArray.filter(
+                            (value, index) => index % interval === 0
+                          );
+
+                          tdsChart.updateOptions({
+                            xaxis: {
+                              categories: newData,
+                            },
+                          });
+
+                          tdsChart.updateSeries([
+                            {
+                              data: newTdsArray,
+                            },
+                          ]);
+                        } else {
+                          // Display all values
+                          tdsChart.updateOptions({
+                            xaxis: {
+                              categories: timestampArray,
+                            },
+                          });
+
+                          tdsChart.updateSeries([
+                            {
+                              data: tdsArray,
+                            },
+                          ]);
+                        }
                       }
 
                       function updateTDSChartWeekData(societyId, valueType) {
@@ -1736,6 +1984,12 @@
                         );
 
                         tdsChart.render();
+
+                        // Initial update based on screen width
+                        updateTDSChartDayData();
+
+                        // Update data array when the window is resized
+                        window.addEventListener("resize", updateTDSChartDayData);
                       });
                     </script>
 
