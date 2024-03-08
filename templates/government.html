@@ -36,7 +36,10 @@
       rel="stylesheet"
     />
     <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
-    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/quill/quill.bubble.css"
+      rel="stylesheet"
+    />
     <link
       href="/static/assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
@@ -56,6 +59,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+    <!-- Add other head content here -->
+    <style>
+      /* Styles for bigger devices and desktops */
+    </style>
   </head>
 
   <body>
@@ -116,66 +124,125 @@
     </aside>
     <!-- End Sidebar-->
 
-    <main id="main" class="main" style="margin-left: 600px;">
-    <!-- Floating Labels Form -->
-    <form class="row g-3" id="societyForm">
-        <div style="display:flex; align-items: center;">
+    <main id="main" class="main">
+      <!-- Floating Labels Form for Society ID -->
+      <form class="row g-3" id="societyForm">
+        <!-- Society ID Input -->
         <div class="col-md-8">
           <div class="form-floating">
-            <input type="text" name="id" class="form-control" id="floatingName" placeholder="Your Name" style="height: 65px;">
+            <input
+              type="text"
+              name="id"
+              class="form-control"
+              id="floatingName"
+              placeholder="Your Name"
+              style="height: 65px"
+            />
             <label for="floatingName">Enter Society ID</label>
           </div>
         </div>
-        <div class="text-center" style="margin-left: 1em;">
+        <!-- Submit Button -->
+        <div class="col-md-4 submit-button">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </div>
-    </form><!-- End floating Labels Form --> 
-    
-    <hr style="margin-top: 2em; margin-bottom: 2em; width: 74%">
+      </form>
+      <!-- End Society ID Form -->
 
-    <form class="row g-3" id="districtForm">
-        <div style="display:flex; align-items: center;">
+      <hr class="my-4" />
+
+      <!-- Floating Labels Form for District -->
+      <form class="row g-3" id="districtForm">
+        <!-- District Select -->
         <div class="col-md-8">
-            <div class="form-floating">
-                <select name="district" class="form-select" id="floatingSelect" aria-label="State" style="height: 65px;">
-                <option selected>Select</option>
-                {% for district in districts %}
-                <option value="{{district}}">{{district}}</option>
-                {% endfor %}
-                <!-- <option value="Thane">Thane</option> -->
-                </select>
-                <label for="floatingSelect">District</label>
-            </div>
+          <div class="form-floating">
+            <select
+              name="district"
+              class="form-select"
+              id="floatingSelectDistrict"
+              aria-label="District"
+              style="height: 65px"
+            >
+              <option selected>Select</option>
+              {% for district in districts %}
+              <option value="{{district}}">{{district}}</option>
+              {% endfor %}
+            </select>
+            <label for="floatingSelectDistrict">District</label>
+          </div>
         </div>
-        <div class="text-center" style="margin-left: 1em;">
+        <!-- Submit Button -->
+        <div class="col-md-4 submit-button">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </div>
-    </form><!-- End floating Labels Form --> 
+      </form>
+      <!-- End District Form -->
 
-    <hr style="margin-top: 2em; margin-bottom: 2em; width: 74%">
+      <hr class="my-4" />
 
-    <form class="row g-3" id="localityForm">
-        <div style="display:flex; align-items: center;">
+      <!-- Floating Labels Form for Locality -->
+      <form class="row g-3" id="localityForm">
+        <!-- Locality Select -->
         <div class="col-md-8">
-            <div class="form-floating">
-                <select name="locality" class="form-select" id="floatingSelect" aria-label="State" style="height: 65px;">
-                <option selected>Select</option>
-                {% for locality in localities %}
-                <option value="{{locality}}">{{locality}}</option>
-                {% endfor %}
-                </select>
-                <label for="floatingSelect">Locality</label>
-            </div>
+          <div class="form-floating">
+            <select
+              name="locality"
+              class="form-select"
+              id="floatingSelectLocality"
+              aria-label="Locality"
+              style="height: 65px"
+            >
+              <option selected>Select</option>
+              {% for locality in localities %}
+              <option value="{{locality}}">{{locality}}</option>
+              {% endfor %}
+            </select>
+            <label for="floatingSelectLocality">Locality</label>
+          </div>
         </div>
-        <div class="text-center" style="margin-left: 1em;">
+        <!-- Submit Button -->
+        <div class="col-md-4 submit-button">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </div>
-    </form><!-- End floating Labels Form --> 
-
+      </form>
+      <!-- End Locality Form -->
     </main>
+
+    <style>
+      /* Common styles for both layouts */
+      .main {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px;
+      }
+
+      .form-floating {
+        margin-bottom: 1.5rem;
+      }
+
+      .submit-button {
+        padding-top:13px;
+      }
+
+      /* Styles for smaller devices (less than 1200px) */
+      @media (max-width: 1200px) {
+        .main {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .form-floating {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .submit-button {
+          text-align: center !important;
+          padding-top: 0px;
+        }
+      }
+    </style>
+
     <!-- End #main -->
 
     <!-- Vendor JS Files -->

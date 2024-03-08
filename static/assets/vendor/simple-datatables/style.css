@@ -6,6 +6,10 @@
 	border-bottom: 1px solid #d9d9d9;
 }
 
+.datatable-container {
+	overflow-x: auto;
+}
+
 .datatable-top,
 .datatable-bottom {
 	padding: 8px 10px;
