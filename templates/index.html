@@ -59,6 +59,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
   </head>
 
   <body>
@@ -521,11 +526,22 @@
 
                   <div class="card-body">
                     <h5 class="card-title">Turbidity <span>/Today</span></h5>
-
+                    <div id="spinner"  class="hidden" >
+                    <div role="status" style="display: flex;justify-content: center;" >
+                    <div class="spinner-border" role="status">
+                    </div>
+                    </div>
+                  </div>
                     <!-- Line Chart -->
-                    <div id="turbidityChart"></div>
+                    <div id="turbidityChart" class=""></div>
 
                     <script>
+                      function toggleSpinner() {
+                        const spinner = document.getElementById("spinner");
+                        const chart = document.getElementById("turbidityChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var turbidityChart = null;
                       var phChart = null;
                       const turbidityArray = realtime_json["turbidity_array"];
@@ -578,6 +594,7 @@
                         societyId,
                         valueType
                       ) {
+                        toggleSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -591,6 +608,7 @@
                               return;
                             }
                             // Update the chart's data
+                            toggleSpinner();
                             turbidityChart.updateSeries([
                               {
                                 data: data.turbidityvalue,
@@ -616,6 +634,7 @@
                         month,
                         valueType
                       ) {
+                        toggleSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -631,6 +650,7 @@
                               return;
                             }
                             // Update the chart's data
+                            toggleSpinner();
                             turbidityChart.updateSeries([
                               {
                                 data: data.values,
@@ -655,6 +675,7 @@
                         year,
                         valueType
                       ) {
+                        toggleSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -669,6 +690,7 @@
                               return;
                             }
                             // Update the chart's data
+                            toggleSpinner();
                             turbidityChart.updateSeries([
                               {
                                 data: data.values,
@@ -2078,7 +2100,7 @@
                         },
                         series: [
                           {
-                            name: "Budget vs spending",
+                            name: "Max vs Actual",
                             type: "radar",
                             data: [
                               {
