@@ -151,7 +151,7 @@ def complaints():
         formatted_date = date.strftime("%d-%m-%Y")
         curr['date'] = formatted_date
         complaints.append(curr)
-    return render_template('complaints.html', login_type=loginType ,complaints=complaints)
+    return render_template('complaints.html', login_type=loginType ,complaints=complaints, society_id=session.get('society_id', None))
 
 # Accept complaint for society and government
 @app.route('/acceptcomplaint/<complaint_id>')
