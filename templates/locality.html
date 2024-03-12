@@ -36,7 +36,10 @@
       rel="stylesheet"
     />
     <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet" />
-    <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/static/assets/vendor/quill/quill.bubble.css"
+      rel="stylesheet"
+    />
     <link
       href="/static/assets/vendor/remixicon/remixicon.css"
       rel="stylesheet"
@@ -56,10 +59,15 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
-
     <main id="main" class="main">
       <div class="pagetitle">
         <h1>Dashboard</h1>
@@ -115,18 +123,37 @@
                   <div class="card-body">
                     <h5 class="card-title">PH <span></span></h5>
 
+                    <div id="spinnerPh" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex; justify-content: center"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="phChart"></div>
 
                     <script>
+                      function togglePHSpinner() {
+                        const spinner = document.getElementById("spinnerPh");
+                        const chart = document.getElementById("phChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var phChart = null;
 
-
-                      function updatePHChartMonthData(locality, year, month, valueType) {
-                        
+                      function updatePHChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        togglePHSpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
-                        console.log("updatePHMonthData")
+                        console.log("updatePHMonthData");
                         console.log("locality", locality);
                         fetch(
                           `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
@@ -134,11 +161,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            togglePHSpinner();
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -159,8 +187,12 @@
                           });
                       }
 
-                      function updatePHChartYearData(locality, year, valueType) {
-                        
+                      function updatePHChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        togglePHSpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -168,11 +200,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            togglePHSpinner();
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -194,10 +227,19 @@
                       }
 
                       var monthPh = document.getElementById("phMonth");
-                      monthPh.addEventListener("click",() => updatePHChartMonthData("{{locality}}", 2023, "9", "phvalue"));
+                      monthPh.addEventListener("click", () =>
+                        updatePHChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          "9",
+                          "phvalue"
+                        )
+                      );
 
                       var yearPh = document.getElementById("phYear");
-                      yearPh.addEventListener("click", () => updatePHChartYearData("{{locality}}", 2023, "phvalue"));
+                      yearPh.addEventListener("click", () =>
+                        updatePHChartYearData("{{locality}}", 2023, "phvalue")
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         locality = "{{locality}}";
@@ -205,62 +247,62 @@
                         month = "9";
                         valueType = "phvalue";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        phChart = new ApexCharts(
-                          document.querySelector("#phChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            phChart = new ApexCharts(
+                              document.querySelector("#phChart"),
                               {
-                                name: "PH",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: "PH",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        phChart.render();
-                        console.log(phChart);
-                        });
+                            phChart.render();
+                            console.log(phChart);
+                          });
                       });
                     </script>
                     <!-- End Line Chart -->
@@ -298,12 +340,12 @@
                     <div id="spinnerturb" class="hidden">
                       <div
                         role="status"
-                        style="display: flex;justify-content: center;"
+                        style="display: flex; justify-content: center"
                       >
                         <div class="spinner-border" role="status"></div>
                       </div>
                     </div>
-                    
+
                     <!-- Line Chart -->
                     <div id="turbidityChart"></div>
 
@@ -317,8 +359,13 @@
                         spinner.classList.toggle("hidden");
                       }
 
-                      function updateTurbidityChartMonthData(locality, year, month, valueType) {
-                        
+                      function updateTurbidityChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        toggleTurbiditySpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -327,11 +374,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleTurbiditySpinner();
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
@@ -352,8 +400,12 @@
                           });
                       }
 
-                      function updateTurbidityChartYearData(locality, year, valueType) {
-                        // toggleTurbiditySpinner();
+                      function updateTurbidityChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        toggleTurbiditySpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -361,12 +413,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
-                            // toggleTurbiditySpinner();
+                            toggleTurbiditySpinner();
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
@@ -387,21 +439,25 @@
                           });
                       }
 
-                      
-
                       var monthTurbidity =
                         document.getElementById("turbidityMonth");
-                      monthTurbidity.addEventListener(
-                        "click",
-                        () =>  updateTurbidityChartMonthData("{{locality}}",2023,9,"turbidityvalue")
+                      monthTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          9,
+                          "turbidityvalue"
+                        )
                       );
-
 
                       var yearTurbidity =
                         document.getElementById("turbidityYear");
-                      yearTurbidity.addEventListener(
-                        "click",
-                        () => updateTurbidityChartYearData("{{locality}}", 2023, "turbidityvalue")
+                      yearTurbidity.addEventListener("click", () =>
+                        updateTurbidityChartYearData(
+                          "{{locality}}",
+                          2023,
+                          "turbidityvalue"
+                        )
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -410,62 +466,62 @@
                         month = "9";
                         valueType = "turbidityvalue";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        turbidityChart = new ApexCharts(
-                          document.querySelector("#turbidityChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            turbidityChart = new ApexCharts(
+                              document.querySelector("#turbidityChart"),
                               {
-                                name: "Turbidity",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: "Turbidity",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        turbidityChart.render();
-                        console.log(turbidityChart);
-                      });
+                            turbidityChart.render();
+                            console.log(turbidityChart);
+                          });
                       });
                     </script>
                     <!-- End Line Chart -->
@@ -500,15 +556,34 @@
                   <div class="card-body">
                     <h5 class="card-title">Temperature <span></span></h5>
 
+                    <div id="spinnerTemp" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="temperatureChart"></div>
 
                     <script>
+                      function toggleTempSpinner() {
+                        const spinner = document.getElementById("spinnerTemp");
+                        const chart = document.getElementById("temperatureChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var temperatureChart = null;
 
-
-                      function updateTemperatureChartMonthData(locality, year, month, valueType) {
-                        
+                      function updateTemperatureChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        toggleTempSpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -517,11 +592,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleTempSpinner();
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -542,8 +618,12 @@
                           });
                       }
 
-                      function updateTemperatureChartYearData(locality, year, valueType) {
-                        
+                      function updateTemperatureChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        toggleTempSpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -551,11 +631,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleTempSpinner();
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -574,22 +655,27 @@
                                 console.error("Error:", error);
                               });
                           });
-
                       }
-
 
                       var monthTemperature =
                         document.getElementById("temperatureMonth");
-                      monthTemperature.addEventListener(
-                        "click",
-                        () => updateTemperatureChartMonthData("{{locality}}", 2023, "9", "temperature")
+                      monthTemperature.addEventListener("click", () =>
+                        updateTemperatureChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          "9",
+                          "temperature"
+                        )
                       );
 
                       var yearTemperature =
                         document.getElementById("temperatureYear");
-                      yearTemperature.addEventListener(
-                        "click",
-                        () => updateTemperatureChartYearData("{{locality}}", 2023, "temperature")
+                      yearTemperature.addEventListener("click", () =>
+                        updateTemperatureChartYearData(
+                          "{{locality}}",
+                          2023,
+                          "temperature"
+                        )
                       );
 
                       document.addEventListener("DOMContentLoaded", () => {
@@ -598,63 +684,63 @@
                         month = "9";
                         valueType = "temperature";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        temperatureChart = new ApexCharts(
-                          document.querySelector("#temperatureChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            temperatureChart = new ApexCharts(
+                              document.querySelector("#temperatureChart"),
                               {
-                                name: "Temperature",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: "Temperature",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        temperatureChart.render();
-                        console.log(temperatureChart);
-                      })
-                        });
+                            temperatureChart.render();
+                            console.log(temperatureChart);
+                          });
+                      });
                     </script>
 
                     <!-- End Line Chart -->
@@ -691,14 +777,34 @@
                       Electrical Conductivity <span></span>
                     </h5>
 
+                    <div id="spinnerEc" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="ecChart"></div>
 
                     <script>
+                      function toggleECSpinner() {
+                        const spinner = document.getElementById("spinnerEc");
+                        const chart = document.getElementById("ecChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var ecChart = null;
 
-                      function updateEcChartMonthData(locality, year, month, valueType) {
-                        
+                      function updateEcChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        toggleECSpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -707,11 +813,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleECSpinner();
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -732,8 +839,12 @@
                           });
                       }
 
-                      function updateEcChartYearData(locality, year, valueType) {
-                        
+                      function updateEcChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        toggleECSpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -741,11 +852,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleECSpinner();
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -766,12 +878,20 @@
                           });
                       }
 
-
                       var monthEc = document.getElementById("ecMonth");
-                      monthEc.addEventListener("click", () => updateEcChartMonthData("{{locality}}", 2023, "9", "ecvalue"));
+                      monthEc.addEventListener("click", () =>
+                        updateEcChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          "9",
+                          "ecvalue"
+                        )
+                      );
 
                       var yearEc = document.getElementById("ecYear");
-                      yearEc.addEventListener("click", () => updateEcChartYearData("{{locality}}", 2023, "ecvalue"));
+                      yearEc.addEventListener("click", () =>
+                        updateEcChartYearData("{{locality}}", 2023, "ecvalue")
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         locality = "{{locality}}";
@@ -779,62 +899,62 @@
                         month = "9";
                         valueType = "ecvalue";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        ecChart = new ApexCharts(
-                          document.querySelector("#ecChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            ecChart = new ApexCharts(
+                              document.querySelector("#ecChart"),
                               {
-                                name: "Electrical Conductivity",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: "Electrical Conductivity",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        ecChart.render();
-                        console.log(ecChart);
-                      })
+                            ecChart.render();
+                            console.log(ecChart);
+                          });
                       });
                     </script>
 
@@ -869,18 +989,36 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">
-                      Flow Rate <span></span>
-                    </h5>
+                    <h5 class="card-title">Flow Rate <span></span></h5>
+
+                    <div id="spinnerFlow" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
 
                     <!-- Line Chart -->
                     <div id="flowChart"></div>
 
                     <script>
+                      function toggleFlowSpinner() {
+                        const spinner = document.getElementById("spinnerFlow");
+                        const chart = document.getElementById("flowChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var flowChart = null;
 
-                      function updateFlowChartMonthData(locality, year, month, valueType) {
-                        
+                      function updateFlowChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        toggleFlowSpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -889,11 +1027,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleFlowSpinner();
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -914,8 +1053,12 @@
                           });
                       }
 
-                      function updateFlowChartYearData(locality, year, valueType) {
-                        
+                      function updateFlowChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        toggleFlowSpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -923,11 +1066,12 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleFlowSpinner();
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -948,12 +1092,24 @@
                           });
                       }
 
-
                       var monthFlow = document.getElementById("flowMonth");
-                      monthFlow.addEventListener("click", () => updateFlowChartMonthData("{{locality}}", 2023, "9", "flowrate"));
+                      monthFlow.addEventListener("click", () =>
+                        updateFlowChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          "9",
+                          "flowrate"
+                        )
+                      );
 
                       var yearFlow = document.getElementById("flowYear");
-                      yearFlow.addEventListener("click", () => updateFlowChartYearData("{{locality}}", 2023, "flowrate"));
+                      yearFlow.addEventListener("click", () =>
+                        updateFlowChartYearData(
+                          "{{locality}}",
+                          2023,
+                          "flowrate"
+                        )
+                      );
 
                       document.addEventListener("DOMContentLoaded", () => {
                         locality = "{{locality}}";
@@ -961,62 +1117,62 @@
                         month = "9";
                         valueType = "flowrate";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        flowChart = new ApexCharts(
-                          document.querySelector("#flowChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            flowChart = new ApexCharts(
+                              document.querySelector("#flowChart"),
                               {
-                                name: " Flow Rate",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: " Flow Rate",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        flowChart.render();
-                        console.log(flowChart);
-                      })
+                            flowChart.render();
+                            console.log(flowChart);
+                          });
                       });
                     </script>
 
@@ -1031,32 +1187,56 @@
                     <a class="icon" href="#" data-bs-toggle="dropdown">
                       <i class="bi bi-three-dots"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
                       <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsMonth">This Month</a>
+                        <a class="dropdown-item" href="#" id="tdsMonth"
+                          >This Month</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" id="tdsYear">This Year</a>
+                        <a class="dropdown-item" href="#" id="tdsYear"
+                          >This Year</a
+                        >
                       </li>
                     </ul>
                   </div>
-              
+
                   <div class="card-body">
-                    <h5 class="card-title">
-                      TDS Value <span></span>
-                    </h5>
-              
+                    <h5 class="card-title">TDS Value <span></span></h5>
+
+                    <div id="spinnertds" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="tdsChart"></div>
-              
+
                     <script>
+                      function toggleTDSSpinner() {
+                        const spinner = document.getElementById("spinnertds");
+                        const chart = document.getElementById("tdsChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var tdsChart = null;
-              
-                      function updateTDSChartMonthData(locality, year, month, valueType) {
-                        
+
+                      function updateTDSChartMonthData(
+                        locality,
+                        year,
+                        month,
+                        valueType
+                      ) {
+                        toggleTDSSpinner();
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
@@ -1065,18 +1245,19 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleTDSSpinner();
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
                                 data: data.values, // Use the correct key for TDS data
                               },
                             ]);
-              
+
                             tdsChart
                               .updateOptions({
                                 xaxis: {
@@ -1089,9 +1270,13 @@
                               });
                           });
                       }
-              
-                      function updateTDSChartYearData(locality, year, valueType) {
-                        
+
+                      function updateTDSChartYearData(
+                        locality,
+                        year,
+                        valueType
+                      ) {
+                        toggleTDSSpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -1099,18 +1284,19 @@
                           .then((response) => response.json())
                           .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                               return;
                             }
+                            toggleTDSSpinner();
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
                                 data: data.values, // Use the correct key for TDS data
                               },
                             ]);
-              
+
                             tdsChart
                               .updateOptions({
                                 xaxis: {
@@ -1123,87 +1309,92 @@
                               });
                           });
                       }
-              
+
                       var tdsMonth = document.getElementById("tdsMonth");
                       tdsMonth.addEventListener("click", () =>
-                        updateTDSChartMonthData("{{locality}}", 2023, "9", "tdsvalue")
+                        updateTDSChartMonthData(
+                          "{{locality}}",
+                          2023,
+                          "9",
+                          "tdsvalue"
+                        )
                       );
-              
+
                       var tdsYear = document.getElementById("tdsYear");
                       tdsYear.addEventListener("click", () =>
                         updateTDSChartYearData("{{locality}}", 2023, "tdsvalue")
                       );
-              
+
                       document.addEventListener("DOMContentLoaded", () => {
                         locality = "{{locality}}";
                         year = "2023";
                         month = "9";
                         valueType = "tdsvalue";
                         fetch(
-                            `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
-                        .then((response) => response.json())
-                        .then((data) => {
+                          .then((response) => response.json())
+                          .then((data) => {
                             console.log(data);
-                            if(data.values.length == 0) {
+                            if (data.values.length == 0) {
                               alert("No data found");
                               console.log("No data found");
                             }
-                        console.log(data);
-                        tdsChart = new ApexCharts(
-                          document.querySelector("#tdsChart"),
-                          {
-                            series: [
+                            console.log(data);
+                            tdsChart = new ApexCharts(
+                              document.querySelector("#tdsChart"),
                               {
-                                name: "Total Dissolved Solids",
-                                data: data.values,
-                              },
-                            ],
-                            chart: {
-                              height: 200,
-                              type: "area",
-                              toolbar: {
-                                show: true,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "text",
-                              categories: data.weeks,
-                            },
-                          }
-                        );
+                                series: [
+                                  {
+                                    name: "Total Dissolved Solids",
+                                    data: data.values,
+                                  },
+                                ],
+                                chart: {
+                                  height: 200,
+                                  type: "area",
+                                  toolbar: {
+                                    show: true,
+                                  },
+                                },
+                                markers: {
+                                  size: 4,
+                                },
+                                colors: ["#4154f1"],
+                                fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100],
+                                  },
+                                },
+                                dataLabels: {
+                                  enabled: false,
+                                },
+                                stroke: {
+                                  curve: "smooth",
+                                  width: 2,
+                                },
+                                xaxis: {
+                                  type: "text",
+                                  categories: data.weeks,
+                                },
+                              }
+                            );
 
-                        tdsChart.render();
-                        console.log(tdsChart);
-                      })
+                            tdsChart.render();
+                            console.log(tdsChart);
+                          });
                       });
                     </script>
-              
+
                     <!-- End Line Chart -->
                   </div>
                 </div>
-              </div>              
-              
+              </div>
+
               <!-- End Reports -->
 
               <!-- Recent Sales -->
@@ -1214,7 +1405,6 @@
             </div>
           </div>
           <!-- End Left side columns -->
-
         </div>
       </section>
     </main>
