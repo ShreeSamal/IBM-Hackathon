@@ -295,11 +295,27 @@
                   <div class="card-body">
                     <h5 class="card-title">Turbidity <span></span></h5>
 
+                    <div id="spinnerturb" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+                    
                     <!-- Line Chart -->
                     <div id="turbidityChart"></div>
 
                     <script>
                       var turbidityChart = null;
+
+                      function toggleTurbiditySpinner() {
+                        const spinner = document.getElementById("spinnerturb");
+                        const chart = document.getElementById("turbidityChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
 
                       function updateTurbidityChartMonthData(locality, year, month, valueType) {
                         
@@ -337,7 +353,7 @@
                       }
 
                       function updateTurbidityChartYearData(locality, year, valueType) {
-                        
+                        // toggleTurbiditySpinner();
                         year = year ? year : "2023";
                         fetch(
                           `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
@@ -350,6 +366,7 @@
                               console.log("No data found");
                               return;
                             }
+                            // toggleTurbiditySpinner();
                             // Update the chart's data
                             turbidityChart.updateSeries([
                               {
