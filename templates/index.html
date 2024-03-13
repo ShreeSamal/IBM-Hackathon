@@ -59,11 +59,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <style>
-    .hidden {
-      display: none;
-    }
-  </style>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -71,7 +71,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
         <i class="bi bi-list toggle-sidebar-btn m-4"></i>
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="/" class="logo d-flex align-items-center">
           <img
             src="/static/assets/img/cfrost-logo.png"
             alt=""
@@ -151,6 +151,7 @@
               <!-- End Customers Card -->
 
               <!-- Reports -->
+              <!-- PH -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -201,11 +202,24 @@
 
                   <div class="card-body">
                     <h5 class="card-title">PH <span>/Today</span></h5>
-
+                    <div id="spinnerPh" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
                     <!-- Line Chart -->
                     <div id="phChart"></div>
 
                     <script>
+                      function togglePHSpinner() {
+                        const spinner = document.getElementById("spinnerPh");
+                        const chart = document.getElementById("phChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var phChart = null;
                       const realtime_json = JSON.parse(
                         `{{realtime_values | safe}}`
@@ -258,6 +272,7 @@
                       }
 
                       function updatePHChartWeekData(societyId, valueType) {
+                        togglePHSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         console.log("updatePHChartWeekData");
                         console.log("societyId", societyId);
@@ -286,6 +301,7 @@
                                 return `${day}/${month}`;
                               }
                             );
+                            togglePHSpinner();
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -298,13 +314,13 @@
                                 xaxis: {
                                   type: "datetime",
                                   categories: [
-                                    "13/10",
-                                    "14/10",
-                                    "15/10",
-                                    "16/10",
-                                    "17/10",
-                                    "18/10",
-                                    "19/10",
+                                    "17/08",
+                                    "16/08",
+                                    "15/08",
+                                    "14/08",
+                                    "13/08",
+                                    "12/08",
+                                    "11/08",
                                   ],
                                 },
                               })
@@ -321,6 +337,7 @@
                         month,
                         valueType
                       ) {
+                        togglePHSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -337,6 +354,7 @@
                               console.log("No data found");
                               return;
                             }
+                            togglePHSpinner();
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -362,6 +380,7 @@
                         year,
                         valueType
                       ) {
+                        togglePHSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -375,6 +394,7 @@
                               console.log("No data found");
                               return;
                             }
+                            togglePHSpinner();
                             // Update the chart's data
                             phChart.updateSeries([
                               {
@@ -476,6 +496,8 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Turbidity -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -526,18 +548,20 @@
 
                   <div class="card-body">
                     <h5 class="card-title">Turbidity <span>/Today</span></h5>
-                    <div id="spinner"  class="hidden" >
-                    <div role="status" style="display: flex;justify-content: center;" >
-                    <div class="spinner-border" role="status">
+                    <div id="spinnerTurb" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
                     </div>
-                    </div>
-                  </div>
                     <!-- Line Chart -->
                     <div id="turbidityChart" class=""></div>
 
                     <script>
                       function toggleSpinner() {
-                        const spinner = document.getElementById("spinner");
+                        const spinner = document.getElementById("spinnerTurb");
                         const chart = document.getElementById("turbidityChart");
                         chart.classList.toggle("hidden");
                         spinner.classList.toggle("hidden");
@@ -619,7 +643,12 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: data.timestamps.map(timestamp => {
+                                    const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+                                    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (months are zero-based) and pad with leading zero if needed
+                                    return `${day}/${month}`;
+                                }),
                                 },
                               })
                               .catch((error) => {
@@ -807,6 +836,8 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Temperature -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -857,11 +888,24 @@
 
                   <div class="card-body">
                     <h5 class="card-title">Temperature <span>/Today</span></h5>
-
+                    <div id="spinnerTemp" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
                     <!-- Line Chart -->
                     <div id="temperatureChart"></div>
 
                     <script>
+                      function toggleTempSpinner() {
+                        const spinner = document.getElementById("spinnerTemp");
+                        const chart = document.getElementById("temperatureChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
                       var temperatureChart = null;
                       const temperatureArray =
                         realtime_json["temperature_array"];
@@ -914,6 +958,7 @@
                         societyId,
                         valueType
                       ) {
+                        toggleTempSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -926,6 +971,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleTempSpinner();
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -937,7 +983,12 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: data.timestamps.map(timestamp => {
+                                    const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+                                    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (months are zero-based) and pad with leading zero if needed
+                                    return `${day}/${month}`;
+                                }),
                                 },
                               })
                               .catch((error) => {
@@ -952,6 +1003,7 @@
                         month,
                         valueType
                       ) {
+                        toggleTempSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -966,6 +1018,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleTempSpinner();
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -991,6 +1044,7 @@
                         year,
                         valueType
                       ) {
+                        toggleTempSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1004,6 +1058,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleTempSpinner();
                             // Update the chart's data
                             temperatureChart.updateSeries([
                               {
@@ -1122,6 +1177,8 @@
                   </div>
                 </div>
               </div>
+
+              <!-- EC -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -1175,12 +1232,27 @@
                       Electrical Conductivity <span>/Today</span>
                     </h5>
 
+                    <div id="spinnerEc" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
                     <!-- Line Chart -->
                     <div id="ecChart"></div>
 
                     <script>
                       var ecChart = null;
                       const ecArray = realtime_json["ec_array"];
+
+                      function toggleECSpinner() {
+                        const spinner = document.getElementById("spinnerEc");
+                        const chart = document.getElementById("ecChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
 
                       // Check screen width and update x-axis categories and data array
                       function updateEcChartDayData() {
@@ -1227,6 +1299,7 @@
                       }
 
                       function updateEcChartWeekData(societyId, valueType) {
+                        toggleECSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -1239,6 +1312,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleECSpinner();
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -1250,7 +1324,12 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: data.timestamps.map(timestamp => {
+                                    const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+                                    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (months are zero-based) and pad with leading zero if needed
+                                    return `${day}/${month}`;
+                                }),
                                 },
                               })
                               .catch((error) => {
@@ -1265,6 +1344,7 @@
                         month,
                         valueType
                       ) {
+                        toggleECSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -1279,6 +1359,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleECSpinner();
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -1304,6 +1385,7 @@
                         year,
                         valueType
                       ) {
+                        toggleECSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1317,6 +1399,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleECSpinner();
                             // Update the chart's data
                             ecChart.updateSeries([
                               {
@@ -1419,6 +1502,7 @@
                 </div>
               </div>
 
+              <!-- Flow -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -1470,12 +1554,27 @@
                   <div class="card-body">
                     <h5 class="card-title">Flow Rate <span>/Today</span></h5>
 
+                    <div id="spinnerFlow" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="flowChart"></div>
 
                     <script>
                       var flowChart = null;
                       const flowArray = realtime_json["flow_array"];
+                      function toggleFlowSpinner() {
+                        const spinner = document.getElementById("spinnerFlow");
+                        const chart = document.getElementById("flowChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
 
                       // Check screen width and update x-axis categories and data array
                       function updateFlowChartDayData() {
@@ -1522,6 +1621,7 @@
                       }
 
                       function updateFlowChartWeekData(societyId, valueType) {
+                        toggleFlowSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -1534,6 +1634,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleFlowSpinner();
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1545,7 +1646,12 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: data.timestamps.map(timestamp => {
+                                    const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+                                    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (months are zero-based) and pad with leading zero if needed
+                                    return `${day}/${month}`;
+                                }),
                                 },
                               })
                               .catch((error) => {
@@ -1560,6 +1666,7 @@
                         month,
                         valueType
                       ) {
+                        toggleFlowSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -1574,6 +1681,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleFlowSpinner();
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1599,6 +1707,7 @@
                         year,
                         valueType
                       ) {
+                        toggleFlowSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1612,6 +1721,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleFlowSpinner();
                             // Update the chart's data
                             flowChart.updateSeries([
                               {
@@ -1721,6 +1831,7 @@
                 </div>
               </div>
 
+              <!-- TDS -->
               <div class="col-12">
                 <div class="card">
                   <div class="filter">
@@ -1772,12 +1883,28 @@
                   <div class="card-body">
                     <h5 class="card-title">TDS Value <span>/ Today</span></h5>
 
+                    <div id="spinnertds" class="hidden">
+                      <div
+                        role="status"
+                        style="display: flex;justify-content: center;"
+                      >
+                        <div class="spinner-border" role="status"></div>
+                      </div>
+                    </div>
+
                     <!-- Line Chart -->
                     <div id="tdsChart"></div>
 
                     <script>
                       var tdsChart = null;
                       const tdsArray = realtime_json["tds_array"];
+
+                      function toggleTDSSpinner() {
+                        const spinner = document.getElementById("spinnertds");
+                        const chart = document.getElementById("tdsChart");
+                        chart.classList.toggle("hidden");
+                        spinner.classList.toggle("hidden");
+                      }
 
                       // Check screen width and update x-axis categories and data array
                       function updateTDSChartDayData() {
@@ -1824,6 +1951,7 @@
                       }
 
                       function updateTDSChartWeekData(societyId, valueType) {
+                        toggleTDSSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         fetch(
                           `http://localhost:5000/api/society/week/${societyId}/${valueType}`
@@ -1836,6 +1964,7 @@
                               return;
                             }
                             console.log(data);
+                            toggleTDSSpinner();
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
@@ -1847,7 +1976,12 @@
                               .updateOptions({
                                 xaxis: {
                                   type: "datetime",
-                                  categories: data.timestamps,
+                                  categories: data.timestamps.map(timestamp => {
+                                    const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+                                    const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (months are zero-based) and pad with leading zero if needed
+                                    return `${day}/${month}`;
+                                }),
                                 },
                               })
                               .catch((error) => {
@@ -1862,6 +1996,7 @@
                         month,
                         valueType
                       ) {
+                        toggleTDSSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         month = month ? month : "9";
                         year = year ? year : "2023";
@@ -1876,6 +2011,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleTDSSpinner();
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {
@@ -1901,6 +2037,7 @@
                         year,
                         valueType
                       ) {
+                        toggleTDSSpinner();
                         societyId = societyId ? societyId : "{{society_id}}";
                         year = year ? year : "2023";
                         fetch(
@@ -1914,6 +2051,7 @@
                               console.log("No data found");
                               return;
                             }
+                            toggleTDSSpinner();
                             // Update the chart's data
                             tdsChart.updateSeries([
                               {

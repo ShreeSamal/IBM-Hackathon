@@ -99,10 +99,14 @@
     <aside id="sidebar" class="sidebar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/society/{{society_id}}">
+          {% if society_id %}
+            <a class="nav-link" href="/society/{{ society_id }}">
+          {% else %}
+            <a class="nav-link" href="/government">
+          {% endif %}
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
-          </a>
+            </a>
         </li>
         <!-- End Dashboard Nav -->
 
