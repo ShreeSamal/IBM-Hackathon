@@ -120,7 +120,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">PH <span>/This Month</span></h5>
+                    <h5 class="card-title">PH <span id="timeFramePh">/Month</span></h5>
                     <div id="spinnerPh" class="hidden">
                       <div
                         role="status"
@@ -134,6 +134,13 @@
                     <div id="phChart"></div>
 
                     <script>
+                      document.getElementById("phMonth").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Month";
+                      });
+
+                      document.getElementById("phYear").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Year";
+                      });
                       function togglePHSpinner() {
                         const spinner = document.getElementById("spinnerPh");
                         const chart = document.getElementById("phChart");
@@ -334,7 +341,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      Turbidity <span>/This Month</span>
+                      Turbidity <span id="timeFrameTurb">/Month</span>
                     </h5>
 
                     <div id="spinnerturb" class="hidden">
@@ -349,6 +356,13 @@
                     <div id="turbidityChart"></div>
 
                     <script>
+                      document.getElementById("turbidityMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Month";
+                      });
+
+                      document.getElementById("turbidityYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Year";
+                      });
                       var turbidityChart = null;
 
                       function toggleTurbiditySpinner() {
@@ -556,7 +570,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      Temperature <span>/This Month</span>
+                      Temperature <span id="timeFrameTemp">/Month</span>
                     </h5>
                     <div id="spinnerTemp" class="hidden">
                       <div
@@ -570,6 +584,13 @@
                     <div id="temperatureChart"></div>
 
                     <script>
+                      document.getElementById("temperatureMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Month";
+                      });
+
+                      document.getElementById("temperatureYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Year";
+                      });
                       function toggleTempSpinner() {
                         const spinner = document.getElementById("spinnerTemp");
                         const chart =
@@ -776,7 +797,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      Electrical Conductivity <span>/This Month</span>
+                      Electrical Conductivity <span id="timeFrameEc">/Month</span>
                     </h5>
                     <div id="spinnerEc" class="hidden">
                       <div
@@ -791,6 +812,13 @@
                     <div id="ecChart"></div>
 
                     <script>
+                      document.getElementById("ecMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Month";
+                      });
+
+                      document.getElementById("ecYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Year";
+                      });
                       function toggleECSpinner() {
                         const spinner = document.getElementById("spinnerEc");
                         const chart = document.getElementById("ecChart");
@@ -993,7 +1021,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      Flow Rate <span>/This Month</span>
+                      Flow Rate <span id="timeFrameFlow">/Month</span>
                     </h5>
                     <div id="spinnerFlow" class="hidden">
                       <div
@@ -1007,6 +1035,13 @@
                     <div id="flowChart"></div>
 
                     <script>
+                      document.getElementById("flowMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Month";
+                      });
+
+                      document.getElementById("flowYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Year";
+                      });
                       function toggleFlowSpinner() {
                         const spinner = document.getElementById("spinnerFlow");
                         const chart = document.getElementById("flowChart");
@@ -1212,7 +1247,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      TDS Value <span>/ This Month</span>
+                      TDS Value <span id="timeFrameTds">/Month</span>
                     </h5>
 
                     <div id="spinnertds" class="hidden">
@@ -1228,6 +1263,13 @@
                     <div id="tdsChart"></div>
 
                     <script>
+                      document.getElementById("tdsMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Month";
+                      });
+
+                      document.getElementById("tdsYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Year";
+                      });
                       function toggleTDSSpinner() {
                         const spinner = document.getElementById("spinnertds");
                         const chart = document.getElementById("tdsChart");
