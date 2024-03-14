@@ -201,7 +201,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">PH <span>/Today</span></h5>
+                    <h5 class="card-title">PH <span id="timeFramePh">/Today</span></h5>
                     <div id="spinnerPh" class="hidden">
                       <div
                         role="status"
@@ -214,6 +214,22 @@
                     <div id="phChart"></div>
 
                     <script>
+                      // JavaScript to update the time frame dynamically
+                      document.getElementById("phDay").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Today";
+                      });
+
+                      document.getElementById("phWeek").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Week";
+                      });
+
+                      document.getElementById("phMonth").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Month";
+                      });
+
+                      document.getElementById("phYear").addEventListener("click", function() {
+                          document.getElementById("timeFramePh").innerText = "/Year";
+                      });
                       function togglePHSpinner() {
                         const spinner = document.getElementById("spinnerPh");
                         const chart = document.getElementById("phChart");
@@ -547,7 +563,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">Turbidity <span>/Today</span></h5>
+                    <h5 class="card-title">Turbidity <span id="timeFrameTurb">/Today</span></h5>
                     <div id="spinnerTurb" class="hidden">
                       <div
                         role="status"
@@ -560,6 +576,22 @@
                     <div id="turbidityChart" class=""></div>
 
                     <script>
+                      // JavaScript to update the time frame dynamically
+                      document.getElementById("turbidityDay").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Today";
+                      });
+
+                      document.getElementById("turbidityWeek").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Week";
+                      });
+
+                      document.getElementById("turbidityMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Month";
+                      });
+
+                      document.getElementById("turbidityYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTurb").innerText = "/Year";
+                      });
                       function toggleSpinner() {
                         const spinner = document.getElementById("spinnerTurb");
                         const chart = document.getElementById("turbidityChart");
@@ -887,7 +919,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">Temperature <span>/Today</span></h5>
+                    <h5 class="card-title">Temperature <span id="timeFrameTemp">/Today</span></h5>
                     <div id="spinnerTemp" class="hidden">
                       <div
                         role="status"
@@ -900,6 +932,21 @@
                     <div id="temperatureChart"></div>
 
                     <script>
+                      document.getElementById("temperatureDay").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Today";
+                      });
+
+                      document.getElementById("temperatureWeek").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Week";
+                      });
+
+                      document.getElementById("temperatureMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Month";
+                      });
+
+                      document.getElementById("temperatureYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTemp").innerText = "/Year";
+                      });
                       function toggleTempSpinner() {
                         const spinner = document.getElementById("spinnerTemp");
                         const chart = document.getElementById("temperatureChart");
@@ -1229,7 +1276,7 @@
 
                   <div class="card-body">
                     <h5 class="card-title">
-                      Electrical Conductivity <span>/Today</span>
+                      Electrical Conductivity <span id="timeFrameEc">/Today</span>
                     </h5>
 
                     <div id="spinnerEc" class="hidden">
@@ -1244,6 +1291,22 @@
                     <div id="ecChart"></div>
 
                     <script>
+                      // JavaScript to update the time frame dynamically
+                      document.getElementById("ecDay").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Today";
+                      });
+
+                      document.getElementById("ecWeek").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Week";
+                      });
+
+                      document.getElementById("ecMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Month";
+                      });
+
+                      document.getElementById("ecYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameEc").innerText = "/Year";
+                      });
                       var ecChart = null;
                       const ecArray = realtime_json["ec_array"];
 
@@ -1552,7 +1615,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">Flow Rate <span>/Today</span></h5>
+                    <h5 class="card-title">Flow Rate <span id="timeFrameFlow">/Today</span></h5>
 
                     <div id="spinnerFlow" class="hidden">
                       <div
@@ -1567,6 +1630,22 @@
                     <div id="flowChart"></div>
 
                     <script>
+                      // JavaScript to update the time frame dynamically
+                      document.getElementById("flowDay").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Today";
+                      });
+
+                      document.getElementById("flowWeek").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Week";
+                      });
+
+                      document.getElementById("flowMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Month";
+                      });
+
+                      document.getElementById("flowYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameFlow").innerText = "/Year";
+                      });
                       var flowChart = null;
                       const flowArray = realtime_json["flow_array"];
                       function toggleFlowSpinner() {
@@ -1881,7 +1960,7 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">TDS Value <span>/ Today</span></h5>
+                    <h5 class="card-title">TDS Value <span id="timeFrameTds">/ Today</span></h5>
 
                     <div id="spinnertds" class="hidden">
                       <div
@@ -1896,6 +1975,22 @@
                     <div id="tdsChart"></div>
 
                     <script>
+                      // JavaScript to update the time frame dynamically
+                      document.getElementById("tdsDay").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Today";
+                      });
+
+                      document.getElementById("tdsWeek").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Week";
+                      });
+
+                      document.getElementById("tdsMonth").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Month";
+                      });
+
+                      document.getElementById("tdsYear").addEventListener("click", function() {
+                          document.getElementById("timeFrameTds").innerText = "/Year";
+                      });
                       var tdsChart = null;
                       const tdsArray = realtime_json["tds_array"];
 
