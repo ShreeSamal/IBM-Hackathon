@@ -60,7 +60,6 @@ def unix_timestamp_to_hours_minutes(unix_timestamp):
 
 
 realTimeValues = extract_arrays(data["qAHwREgZneMJ6pxPUfOrZ1wcOBY2"]['readings'])
-print(realTimeValues)
 
 
 def login_required(func):
@@ -122,7 +121,6 @@ def login():
         if len(user) >= 2 and user['password'] == password:
             session.clear()
             session['email'] = user['email']
-            print("logged in")
             if user['role'] == 'secretary':
                 session['society_id'] = user['society_id']
                 return redirect('/society/'+str(user['society_id']))
@@ -159,7 +157,6 @@ def accept_complaint(complaint_id):
     complaint_ref = database.collection('complaints').where('id', '==', complaint_id).limit(1).get()
 
     if not complaint_ref:
-        print("No matching document found")
         return "No matching document found"
 
     complaint_doc = list(complaint_ref)[0].reference
