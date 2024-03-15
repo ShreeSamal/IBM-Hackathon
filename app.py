@@ -6,6 +6,7 @@ from flask_cors import CORS
 import json
 import uuid
 from functools import wraps
+from flask_caching import Cache
 cred = credentials.Certificate("./serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://ibm-hackathon-f5e60-default-rtdb.asia-southeast1.firebasedatabase.app'
@@ -18,6 +19,14 @@ app = Flask(__name__)
 cors = CORS(app)
 app.secret_key = "gccy7dfiygivlucxr7s76680tg9ug"
 
+# Create a cache
+cache = Cache()
+CACHE_CONFIG = {
+    'CACHE_TYPE': 'simple',  # Use simple in-memory cache for simplicity
+    'CACHE_DEFAULT_TIMEOUT': 9000  # Cache timeout in seconds (adjust as needed)
+}
+
+cache.init_app(app, config=CACHE_CONFIG)
 
 def extract_arrays(data):
     timestamps = [unix_timestamp_to_hours_minutes(entry['timestamp']) for entry in data.values()]
@@ -206,7 +215,9 @@ def logcomplaint():
 
 # Last 7 days
 @app.route('/api/society/week/<society_id>/<value_type>')
+@cache.cached(timeout=9000) # Cache the response
 def societyApi(society_id, value_type):
+    print("called api/society/week")
     society_id = int(society_id)
     society_ref = database.collection('society')
     documents = society_ref.where('society_id', '==', society_id).stream()
@@ -245,7 +256,9 @@ def societyApi(society_id, value_type):
 
 # Last 7 days
 @app.route('/api/society')
+@cache.cached(timeout=9000) # Cache the response
 def societyAll():
+    print("called api/society")
     society_ref = database.collection('society')
     documents = society_ref.stream()
 
@@ -257,7 +270,9 @@ def societyAll():
 
 
 @app.route('/api/month/district/<district>/<year>/<month>/<value_type>')
+@cache.cached(timeout=3000) 
 def calculate_average_district_weekly_data(district, year, month, value_type):
+    print("called api/month/district")
     year = int(year)
     month = int(month)
 
@@ -328,7 +343,9 @@ def calculate_average_district_weekly_data(district, year, month, value_type):
 
 # Get month data
 @app.route('/api/month/<society_id>/<year>/<month>/<value_type>')
+@cache.cached(timeout=9000) 
 def calculate_average_weekly_data(society_id, year, month, value_type):
+    print("called api/month")
     society_id = int(society_id)
     year = int(year)
     month = int(month)
@@ -397,7 +414,9 @@ def calculate_average_weekly_data(society_id, year, month, value_type):
 
 # Get year data for district
 @app.route('/api/year/district/<district>/<year>/<value_type>')
+@cache.cached(timeout=9000) 
 def calculate_average_monthly_district_data(district, year, value_type):
+    print("called api/year/district")
     year = int(year)
     keys_to_average = [value_type]
 
@@ -453,7 +472,9 @@ def calculate_average_monthly_district_data(district, year, value_type):
 
 # Get year data for society
 @app.route('/api/year/<society_id>/<year>/<value_type>')
+@cache.cached(timeout=9000) 
 def calculate_average_monthly_data(society_id, year, value_type):
+    print("called api/year")
     society_id = int(society_id)
     year = int(year)
     keys_to_average = [value_type]
@@ -510,7 +531,9 @@ def calculate_average_monthly_data(society_id, year, value_type):
 
 # Get year data for locality
 @app.route('/api/year/locality/<locality>/<year>/<value_type>')
+@cache.cached(timeout=9000) 
 def calculate_average_monthly_locality_data(locality, year, value_type):
+    print("called api/year/locality")
     year = int(year)
     keys_to_average = [value_type]
 
@@ -565,7 +588,9 @@ def calculate_average_monthly_locality_data(locality, year, value_type):
 
 # Get district month data
 @app.route('/api/month/locality/<locality>/<year>/<month>/<value_type>')
+@cache.cached(timeout=9000) 
 def calculate_average_locality_weekly_data(locality, year, month, value_type):
+    print("called api/month/locality")
     year = int(year)
     month = int(month)
 
@@ -663,4 +688,4 @@ app.debug = True
 # Your Flask app routes and other configurations go here
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
