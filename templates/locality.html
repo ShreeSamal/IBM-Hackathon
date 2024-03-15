@@ -164,7 +164,7 @@
                         console.log("updatePHMonthData");
                         console.log("locality", locality);
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -203,7 +203,7 @@
                         togglePHSpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -255,7 +255,7 @@
                         month = "9";
                         valueType = "phvalue";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -384,7 +384,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -423,7 +423,7 @@
                         toggleTurbiditySpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -481,7 +481,7 @@
                         month = "9";
                         valueType = "turbidityvalue";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -609,7 +609,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -648,7 +648,7 @@
                         toggleTempSpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -706,7 +706,7 @@
                         month = "9";
                         valueType = "temperature";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -837,7 +837,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -876,7 +876,7 @@
                         toggleECSpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -928,7 +928,7 @@
                         month = "9";
                         valueType = "ecvalue";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1058,7 +1058,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1097,7 +1097,7 @@
                         toggleFlowSpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1153,7 +1153,7 @@
                         month = "9";
                         valueType = "flowrate";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1284,7 +1284,7 @@
                         month = month ? month : "9";
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1323,7 +1323,7 @@
                         toggleTDSSpinner();
                         year = year ? year : "2023";
                         fetch(
-                          `http://localhost:5000/api/year/locality/${locality}/${year}/${valueType}`
+                          `/api/year/locality/${locality}/${year}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
@@ -1375,7 +1375,7 @@
                         month = "9";
                         valueType = "tdsvalue";
                         fetch(
-                          `http://localhost:5000/api/month/locality/${locality}/${year}/${month}/${valueType}`
+                          `/api/month/locality/${locality}/${year}/${month}/${valueType}`
                         )
                           .then((response) => response.json())
                           .then((data) => {
